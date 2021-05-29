@@ -1,10 +1,10 @@
 # EstruturasTrabalhoGrauB
 Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/2021
 
-                                         UNIVERSIDADE DO VALE DO RIO DOS SINOS
-                                         ESCOLA POLITÉCNICA
-                                         Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
-                                         Fone: (51) 3591.1122, Ramal 1668
+                                    UNIVERSIDADE DO VALE DO RIO DOS SINOS
+                                    ESCOLA POLITÉCNICA
+                                    Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
+                                    Fone: (51) 3591.1122, Ramal 1668
 
 Trabalho Prático Grau B
 Estruturas Avançadas de Dados I
@@ -33,6 +33,7 @@ O arquivo a ser lido estará em um formato CSV, de modo que os campos de cada re
 separados por pondo-e-vírgula (;). Seguem algumas linhas de um exemplo de como será o arquivo a ser lido:
 
 12345678910;543216;Fulano de Tal;01/02/1958;Porto Alegre
+
 10987654321;44556601;Cicrana Beltrana Delgrana;25/12/2972;São Leopoldo
 
 Após carregar o arquivo, deverá ser possível realizar as seguintes consultas:
