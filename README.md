@@ -1,10 +1,10 @@
 # EstruturasTrabalhoGrauB
 Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/2021
 
-                                                                UNIVERSIDADE DO VALE DO RIO DOS SINOS
-                                                                ESCOLA POLITÉCNICA
-                                                                Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
-                                                                Fone: (51) 3591.1122, Ramal 1668
+                                         UNIVERSIDADE DO VALE DO RIO DOS SINOS
+                                         ESCOLA POLITÉCNICA
+                                         Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
+                                         Fone: (51) 3591.1122, Ramal 1668
 
 Trabalho Prático Grau B
 Estruturas Avançadas de Dados I
@@ -64,7 +64,7 @@ apenas com chaves e endereços dos registros, e não com cópias inteiras dos re
 
 CRITÉRIOS DE AVALIAÇÃO
 
-    • Deve ser funcional! Programa que não executa não é programa. Deve ser compilável e executável.
+    1 Deve ser funcional! Programa que não executa não é programa. Deve ser compilável e executável.
 Aplicativos que não executarem serão desconsiderados e será atribuída nota zero para os
 aprendizes.
     • Código estruturado, identado e comentado. Não esqueça de colocar seu nome no código;
