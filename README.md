@@ -2,9 +2,9 @@
 Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/2021
 
 Integrantes: 
-* Arthur Nílson: https://github.com/diegosneves
+* Artur Nílson: https://github.com/arturnilson
 * Bruno Kayser: https://github.com/BrunoKayser
-* Diego Neves: 
+* Diego Neves: https://github.com/diegosneves
 * Frederico Cera: 
 
 
