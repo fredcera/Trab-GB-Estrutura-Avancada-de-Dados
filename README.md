@@ -20,27 +20,27 @@ O trabalho consiste em carregar um arquivo contendo informações de pessoas e p
 acesso aos registros por meio de consultas por campos individuais.
 
 ### PROBLEMA
-* Deverá ser desenvolvida uma aplicação que seja capaz de carregar um arquivo de entrada contendo as
+Deverá ser desenvolvida uma aplicação que seja capaz de carregar um arquivo de entrada contendo as
 seguintes informações de pessoas (na seguinte ordem):
-    * número do CPF (numérico);
-    * número do RG (numérico);
-    * nome da pessoa (string);
-    * data de nascimento da pessoa (data no formato DD/MM/AAAA) e
-    *  nome da cidade onde a pessoa nasceu (string).
+* número do CPF (numérico);
+* número do RG (numérico);
+* nome da pessoa (string);
+* data de nascimento da pessoa (data no formato DD/MM/AAAA) e
+*  nome da cidade onde a pessoa nasceu (string).
     
 
-* O arquivo a ser lido estará em um formato CSV, de modo que os campos de cada registro sejam
+O arquivo a ser lido estará em um formato CSV, de modo que os campos de cada registro sejam
 separados por pondo-e-vírgula (;). Seguem algumas linhas de um exemplo de como será o arquivo a ser lido:
 
         12345678910;543216;Fulano de Tal;01/02/1958;Porto Alegre
 
         10987654321;44556601;Cicrana Beltrana Delgrana;25/12/2972;São Leopoldo
 
-* Após carregar o arquivo, deverá ser possível realizar as seguintes consultas:
-    • Consultar uma única pessoa pelo seu CPF e exibir seus dados na tela;
-    • Consultar todas as pessoas cujo nome comece com uma string informada pelo usuário e exibir
+Após carregar o arquivo, deverá ser possível realizar as seguintes consultas:
+* Consultar uma única pessoa pelo seu CPF e exibir seus dados na tela;
+* Consultar todas as pessoas cujo nome comece com uma string informada pelo usuário e exibir
 na tela todos os dados dessas pessoas na forma de lista.
-    • Consultar todas as pessoas cuja data de nascimento esteja em um intervalo estabelecido pelo
+* Consultar todas as pessoas cuja data de nascimento esteja em um intervalo estabelecido pelo
 usuário e exibir na tela todos os dados dessas pessoas na forma de lista.
 
 ### PROCESSO DE DESENVOLVIMENTO
