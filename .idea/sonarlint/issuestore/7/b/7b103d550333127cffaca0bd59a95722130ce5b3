@@ -1,0 +1,44 @@
+
+[
+java:S2259Ó"?A "NullPointerException" could be thrown; "r" is nullable here.(Úæ¶Ãùÿÿÿÿ
+G
+java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ
+K
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ
+m
+java:S3776$"RRefactor this method to reduce its Cognitive Complexity from 83 to the 15 allowed.(É–³Ôøÿÿÿÿ
+S	java:S106h"9Replace this use of System.out or System.err by a logger.(ö¥£ùÿÿÿÿ
+T	java:S106˜"9Replace this use of System.out or System.err by a logger.(ö¥£ùÿÿÿÿ
+<
+java:S3457"%String contains no format specifiers.(ˆ¶­Ï
+O	java:S106"9Replace this use of System.out or System.err by a logger.(ˆ¶­Ï
+W	java:S125£"<This block of commented-out lines of code should be removed.(ÑÔÌûÿÿÿÿ
+X
+java:S1854Ì"<Remove this useless assignment to local variable "aRemover".(ÊŒØÇøÿÿÿÿ
+Q
+java:S1854ë"5Remove this useless assignment to local variable "r".(Ù°ÿÂşÿÿÿÿ
+R	java:S125­"<This block of commented-out lines of code should be removed.(ÚÔÒ˜
+W	java:S125²"<This block of commented-out lines of code should be removed.(ëß­Éıÿÿÿÿ
+R	java:S125—"<This block of commented-out lines of code should be removed.(ª¯¶Ş
+T	java:S106²"9Replace this use of System.out or System.err by a logger.(”õ»ñøÿÿÿÿ
+O	java:S106»"9Replace this use of System.out or System.err by a logger.(ŠœËı
+O	java:S106Å"9Replace this use of System.out or System.err by a logger.(ŠœËı
+O	java:S106Ï"9Replace this use of System.out or System.err by a logger.(ŠœËı
+O	java:S106Õ"9Replace this use of System.out or System.err by a logger.(Ò³ÏÄ
+T	java:S106Ù"9Replace this use of System.out or System.err by a logger.(ç‡‚üÿÿÿÿ
+p
+java:S2293Ú"YReplace the type specification in this constructor call with the diamond operator ("<>").(â¾’
+T	java:S106é"9Replace this use of System.out or System.err by a logger.(ô±„íıÿÿÿÿ
+p
+java:S2293ê"YReplace the type specification in this constructor call with the diamond operator ("<>").(â¾’
+T	java:S106ù"9Replace this use of System.out or System.err by a logger.(¶²¹§øÿÿÿÿ
+p
+java:S2293ú"YReplace the type specification in this constructor call with the diamond operator ("<>").(â¾’
+T	java:S106Œ"9Replace this use of System.out or System.err by a logger.(¹¦Ô„ÿÿÿÿÿ
+O	java:S106"9Replace this use of System.out or System.err by a logger.(ÛÃí
+T	java:S106"9Replace this use of System.out or System.err by a logger.(ü¿èÃøÿÿÿÿ
+O	java:S106’"9Replace this use of System.out or System.err by a logger.(¨üËÂ
+O
+java:S1144Å"8Remove this unused private "removerNoEncontrado" method.(“€³º
+P
+java:S1144°"4Remove this unused private "printarConsulta" method.(©öÉ•úÿÿÿÿ

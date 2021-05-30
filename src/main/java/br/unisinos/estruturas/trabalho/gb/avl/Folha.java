@@ -24,7 +24,7 @@ public class Folha {
 
     @Override
     public String toString() {
-        return "Node{" + " Chave=" + chave + '}';
+        return pessoa.toString();
     }
 
     public Folha getEsquerda() {

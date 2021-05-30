@@ -5,12 +5,12 @@ import java.time.LocalDate;
 public class Pessoa {
 
     private String nome;
-    private Double cpf;
+    private String cpf;
     private Integer rg;
     private LocalDate data;
     private String cidade;
 
-    public Pessoa(String nome, Double cpf, Integer rg, LocalDate data, String cidade) {
+    public Pessoa(String nome, String cpf, Integer rg, LocalDate data, String cidade) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
@@ -22,7 +22,7 @@ public class Pessoa {
         return nome;
     }
 
-    public Double getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
@@ -39,14 +39,13 @@ public class Pessoa {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Pessoa pessoa = (Pessoa) o;
-        return cpf.equals(pessoa.cpf);
+    public String toString() {
+        return String.format(""
+                + "Nome: %s \n"
+                + "CPF: %s \n"
+                + "RG: %s \n"
+                + "Data de Nascimento: %s \n"
+                + "Cidade: %s",
+            nome, cpf, rg, data, cidade);
     }
 }

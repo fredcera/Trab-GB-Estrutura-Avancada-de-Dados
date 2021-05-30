@@ -1,16 +1,23 @@
 package br.unisinos.estruturas.trabalho.gb.avl;
 
+import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transformarStringEmDouble;
+
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 
+import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class ArvoreAVL {
 
-    protected Folha raiz;
+    public Folha raiz;
     private Tipo tipo;
+    private int contadorDeNomes = 1;
 
     public ArvoreAVL(Tipo tipo) {
         this.tipo = tipo;
@@ -19,7 +26,7 @@ public class ArvoreAVL {
     public void inserir(Pessoa chaveAInserir) {
 
         if (tipo == Tipo.CPF) {
-            Folha folha = new Folha(chaveAInserir, chaveAInserir.getCpf().toString());
+            Folha folha = new Folha(chaveAInserir, chaveAInserir.getCpf());
             inserirAVL(this.raiz, folha);
         }
         if (tipo == Tipo.NOME) {
@@ -38,9 +45,13 @@ public class ArvoreAVL {
         if (aComparar == null) {
             this.raiz = aInserir;
         } else {
-            // tenta inserir a esquerda se for menor que o pai
-            if (tipo == Tipo.CPF) { // ================== Inserir atravez da CPF ========================
-                if (aInserir.getPessoa().getCpf() < aComparar.getPessoa().getCpf()) {
+            Double cpfAInserir = transformarStringEmDouble(aInserir.getPessoa().getCpf());
+            Double cpfAComparar = transformarStringEmDouble(aComparar.getPessoa().getCpf());
+
+            if (tipo == Tipo.CPF) { // ================== Inserir atravez da CPF como índice ========================
+                // tenta inserir a esquerda se for menor que o pai
+
+                if (cpfAInserir < cpfAComparar) {
                     if (aComparar.getEsquerda() == null) {
                         aComparar.setEsquerda(aInserir);
                         aInserir.setPai(aComparar);
@@ -50,7 +61,7 @@ public class ArvoreAVL {
                     }
                 }
                 // tenta inserir a direita se for maior que o pai
-                else if (aInserir.getPessoa().getCpf() > aComparar.getPessoa().getCpf()) {
+                else if (cpfAInserir > cpfAComparar) {
                     if (aComparar.getDireita() == null) {
                         aComparar.setDireita(aInserir);
                         aInserir.setPai(aComparar);
@@ -59,8 +70,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
                 }
-            }
-            else if (tipo == Tipo.NOME) { // ================== Inserir atravez da Nome ========================
+            } else if (tipo == Tipo.NOME) { // ================== Inserir atravez da Nome como índice ========================
                 int valorComparado = aInserir.getPessoa().getNome().compareTo(aComparar.getPessoa().getNome());
 
                 if (valorComparado <= -1 && !aInserir.getPessoa().getCpf().equals(aComparar.getPessoa().getCpf())) {
@@ -82,7 +92,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
                     //Caso nome for igual e cpf menor, vai inserir a esquerda
-                } else if (valorComparado == 0 && aInserir.getPessoa().getCpf() < aComparar.getPessoa().getCpf()) {
+                } else if (valorComparado == 0 && cpfAInserir < cpfAComparar) {
                     if (aComparar.getEsquerda() == null) {
                         aComparar.setEsquerda(aInserir);
                         aInserir.setPai(aComparar);
@@ -91,7 +101,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getEsquerda(), aInserir);
                     }
                     //Caso nome for igual, e cpf da pessoa a inserir for maior que da pessoa existente, insere na direita
-                } else if (valorComparado == 0 && aInserir.getPessoa().getCpf() > aComparar.getPessoa().getCpf()) {
+                } else if (valorComparado == 0 && cpfAInserir > cpfAComparar) {
                     if (aComparar.getDireita() == null) {
                         aComparar.setDireita(aInserir);
                         aInserir.setPai(aComparar);
@@ -104,8 +114,7 @@ public class ArvoreAVL {
                     System.out.println("Valor ja existe!");
                 }
 
-            }
-            else if (tipo == Tipo.DATA) { // ================== Inserir atravez da Data ========================
+            } else if (tipo == Tipo.DATA) { // ================== Inserir atravez da Data como índice ========================
 
                 //Caso a data  da pessoa a inserir seja menor que a pessoa existente, vai para esquerda
                 if (aInserir.getPessoa().getData().isBefore(aComparar.getPessoa().getData())
@@ -128,8 +137,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
                     //Caso as datas forem iguais, e cpf da pessoa a inserir seja menor que da pessoa existente, insere na esquerda
-                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData())
-                    && aInserir.getPessoa().getCpf() < aComparar.getPessoa().getCpf()) {
+                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData()) && cpfAInserir < cpfAComparar) {
                     if (aComparar.getEsquerda() == null) {
                         aComparar.setEsquerda(aInserir);
                         aInserir.setPai(aComparar);
@@ -138,8 +146,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getEsquerda(), aInserir);
                     }
                     //Caso as datas forem iguais, e cpf da pessoa a inserir for maior que da pessoa existente, insere na direita
-                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData())
-                    && aInserir.getPessoa().getCpf() > aComparar.getPessoa().getCpf()) {
+                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData()) && cpfAInserir > cpfAComparar) {
                     if (aComparar.getDireita() == null) {
                         aComparar.setDireita(aInserir);
                         aInserir.setPai(aComparar);
@@ -159,40 +166,6 @@ public class ArvoreAVL {
             }
         }
     }
-
-//    private void inserirAVL(Folha aComparar, Folha aInserir) {
-//
-//        if (aComparar == null) {
-//            this.raiz = aInserir;
-//        } else {
-//            // tenta inserir a esquerda se for menor que o pai
-//            if (aInserir.getChave() < aComparar.getChave()) {
-//                if (aComparar.getEsquerda() == null) {
-//                    aComparar.setEsquerda(aInserir);
-//                    aInserir.setPai(aComparar);
-//                    verificarBalanceamento(aComparar);
-//                } else {
-//                    inserirAVL(aComparar.getEsquerda(), aInserir);
-//                }
-//
-//            }
-//            // tenta inserir a direita se for maior que o pai
-//            else if (aInserir.getChave() > aComparar.getChave()) {
-//                if (aComparar.getDireita() == null) {
-//                    aComparar.setDireita(aInserir);
-//                    aInserir.setPai(aComparar);
-//                    verificarBalanceamento(aComparar);
-//                } else {
-//                    inserirAVL(aComparar.getDireita(), aInserir);
-//                }
-//
-//            }
-//            // se ja existir a chave avisa que ja existe
-//            else {
-//                System.out.printf("Nó ja existe!");
-//            }
-//        }
-//    }
 
     // valida o balanceamento o refazendo caso haja balanceamento igual a 2 ou -2
     private void verificarBalanceamento(Folha aComparar) {
@@ -297,91 +270,6 @@ public class ArvoreAVL {
         return rotacaoEsquerda(inicial);
     }
 
-    // Remover um nó a partir da chave
-//    public void remover(int numeroARemover) {
-//        removerAVL(this.raiz, numeroARemover);
-//    }
-
-    // procura percorrendo a arvore até achar o nó que deve ser removido
-//    private void removerAVL(Folha atual, int chaveARemover) {
-//        if (atual == null) {
-//            System.out.println("Não encontrado para remover");
-//            return;
-//
-//        } else {
-//
-//            if (atual.getChave() > chaveARemover) {
-//                removerAVL(atual.getEsquerda(), chaveARemover);
-//
-//            } else if (atual.getChave() < chaveARemover) {
-//                removerAVL(atual.getDireita(), chaveARemover);
-//
-//            } else if (atual.getChave() == chaveARemover) {
-//                removerNoEncontrado(atual);
-//            }
-//        }
-//    }
-
-    private void removerNoEncontrado(Folha aRemover) {
-        Folha r;
-
-        if (aRemover.getEsquerda() == null || aRemover.getDireita() == null) { // sem nada na esquerda ou direita
-
-            if (aRemover.getPai() == null) { // valida se a folha a remover é a raiz
-                this.raiz = null;
-                aRemover = null;
-                return; // termina a função de remoção aqui saindo da função
-            }
-            r = aRemover;
-
-        } else {
-            r = sucessor(aRemover); // procura o sucessor do que deve ser removido
-            aRemover.setChave(r.getChave()); // seta a chave do que deve ser removido como a chave do sucessor
-        }
-
-        Folha p;
-        if (r.getEsquerda() != null) { // verifica se tem alguem na esquerda
-            p = r.getEsquerda();
-        } else { // caso contrario
-            p = r.getDireita();
-        }
-
-        if (p != null) { // se p for null
-            p.setPai(r.getPai()); // seta pai de p passando o pai de r
-        }
-
-        if (r.getPai() == null) { // se for a raiz
-            this.raiz = p; // passa a raiz para p
-        } else {
-            if (r == r.getPai().getEsquerda()) { // se r for igual a ao que esta a esqueda do pai dele mesmo
-                r.getPai().setEsquerda(p); // seta o a esquerda de de pai de r como p
-            } else {
-                r.getPai().setDireita(p); // sera o a direita do de pai de r como p
-            }
-            verificarBalanceamento(r.getPai()); // função de verificar balanceamento
-        }
-        r = null;
-
-    }
-
-    // procura os sucessores de um nó passado como parametro, começando pela direita
-    // e caso não tenha vai pro da esquerda
-    private Folha sucessor(Folha q) {
-        if (q.getDireita() != null) {// caso tenha nó a direita
-            Folha r = q.getDireita();
-            while (r.getEsquerda() != null) {// enquanto o nó a esqueda de r é diferente de null
-                r = r.getEsquerda(); // r recebe o nó a esquerda dele mesmo
-            }
-            return r;
-        } else { // caso tenha não tenha nó a direita
-            Folha p = q.getPai(); // q passa o pai dele para p
-            while (p != null && q == p.getDireita()) { // enquanto p não é null e q é igual ao nó direito de p
-                q = p; // q recebe p
-                p = q.getPai(); // p recebe o pai de q
-            }
-            return p;
-        }
-    }
 
     // seta o balanceamento do no fazendo o calculo de fator
     private void setBalanceamento(Folha no) {
@@ -404,30 +292,29 @@ public class ArvoreAVL {
         }
     }
 
-//    public void buscar(int chave) {
-//        if (raiz == null) {
-//            System.out.println("Arvore vazia!");
-//            return;
-//        }
-//        // se arvore vazia
-//        Folha atual = raiz; // começa a procurar desde raiz
-//
-//        printarConsulta(atual);
-//        while (atual.getChave() != chave) { // enquanto nao encontrou
-//            if (chave < atual.getChave()) {
-//                atual = atual.getEsquerda(); // caminha para esquerda
-//                printarConsulta(atual);
-//            } else {
-//                atual = atual.getDireita(); // caminha para direita
-//                printarConsulta(atual);
-//            }
-//            if (atual == null) {
-//                System.out.println("Não esta na árvore!");
-//                return;// encontrou em uma folha -> sai
-//            }
-//        } // fim laço while
-//        System.out.println(atual.toString());
-//    }
+    public void buscarPeloCPF(String cpf) {
+        if (raiz == null) {
+            System.out.println("Arvore vazia!");
+            return;
+        }
+        // se arvore vazia
+        Folha atual = raiz; // começa a procurar desde raiz
+
+        while (!atual.getPessoa().getCpf().equals(cpf)) { // enquanto nao encontrou
+            if (transformarStringEmDouble(cpf) < transformarStringEmDouble(atual.getChave())) {
+                atual = atual.getEsquerda(); // caminha para esquerda
+            } else {
+                atual = atual.getDireita(); // caminha para direita
+            }
+            if (atual == null) {
+                System.out.println("Não esta na árvore!");
+                return;// encontrou em uma folha -> sai
+            }
+        } // fim laço while
+        System.out.println(String.format(
+            "PESSOA ENCONTRADA \n"
+                + atual));
+    }
 
     private void printarConsulta(Folha folha) {
         if (folha != null) {
@@ -530,4 +417,25 @@ public class ArvoreAVL {
             System.out.print(")");
         }
     }
+
+    public void consultarTodasPessoasPorNome(Folha pagina, String nome) {
+        buscarAsPessoasNaAVL(pagina, nome);
+        contadorDeNomes =1;
+    }
+
+    private void buscarAsPessoasNaAVL(Folha pagina, String nome) {
+
+        if (pagina != null) {
+            buscarAsPessoasNaAVL(pagina.getEsquerda(), nome);
+            String nomeDaPessoaNaFolha = pagina.getPessoa().getNome().toLowerCase(Locale.ROOT);
+            String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
+            if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
+                System.out.println("====================== Pessoa " + contadorDeNomes);
+                System.out.println(pagina.getPessoa());
+                contadorDeNomes++;
+            }
+            buscarAsPessoasNaAVL(pagina.getDireita(), nome);
+        }
+    }
+
 }
