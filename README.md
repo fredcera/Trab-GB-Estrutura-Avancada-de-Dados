@@ -9,17 +9,17 @@ Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/202
 Trabalho Prático Grau B
 Estruturas Avançadas de Dados I
 
-####OBJETIVO
+### OBJETIVO
 
 Nesse trabalho, deverá ser desenvolvida uma aplicação que utilize estrutura de árvore binária de busca
 balanceada AVL.
 
-####DESCRIÇÃO GERAL
+### DESCRIÇÃO GERAL
 
 O trabalho consiste em carregar um arquivo contendo informações de pessoas e possibilitar rápido
 acesso aos registros por meio de consultas por campos individuais.
 
-####PROBLEMA
+### PROBLEMA
 * Deverá ser desenvolvida uma aplicação que seja capaz de carregar um arquivo de entrada contendo as
 seguintes informações de pessoas (na seguinte ordem):
     * número do CPF (numérico);
@@ -43,7 +43,7 @@ na tela todos os dados dessas pessoas na forma de lista.
     • Consultar todas as pessoas cuja data de nascimento esteja em um intervalo estabelecido pelo
 usuário e exibir na tela todos os dados dessas pessoas na forma de lista.
 
-#### PROCESSO DE DESENVOLVIMENTO
+### PROCESSO DE DESENVOLVIMENTO
 
  O programa deverá ser escrito seguindo as seguintes restrições:
 * O trabalho pode ser desenvolvido em Java, C, C++, C# ou Python. 
@@ -65,7 +65,7 @@ ricas. Contudo, como incentivo, trabalhos utilizando alguma tecnologia de interf
 Observação: Os registros (objetos Pessoa) não deverão estar duplicados na memória. A indexação é feita
 apenas com chaves e endereços dos registros, e não com cópias inteiras dos registros na memória.
 
-#### CRITÉRIOS DE AVALIAÇÃO
+### CRITÉRIOS DE AVALIAÇÃO
 
 1. Deve ser funcional! Programa que não executa não é programa. 
 2. Deve ser compilável e executável.
@@ -74,7 +74,7 @@ aprendizes.
 4. Código estruturado, identado e comentado. Não esqueça de colocar seu nome no código;
 5. Implementação correta da árvore AVL.
 
-#### INSTRUÇÕES PARA ENTREGA
+### INSTRUÇÕES PARA ENTREGA
 
 * Data de entrega: **18/06/2020** até as 22h23min
 
@@ -86,5 +86,5 @@ arquivo de vídeo contendo a explicação do código implementado e o programa e
 arquivo *.zip* com os códigos fontes que compõem o trabalho.
 
 ###  MUITO IMPORTANTE!
-Trabalhos copiados da Internet ou dos colegas terão nota zero.
+* Trabalhos copiados da Internet ou dos colegas terão nota zero.
 Data de Entrega: **18/06/2021**
