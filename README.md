@@ -1,6 +1,13 @@
 # Estruturas Avançadas - Trabalho GB - Aplicação Utilizando AVL
 Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/2021
 
+Integrantes: 
+* Arthur Nílson: https://github.com/diegosneves
+* Bruno Kayser: https://github.com/BrunoKayser
+* Diego Neves: 
+* Frederico Cera: 
+
+
     UNIVERSIDADE DO VALE DO RIO DOS SINOS
     ESCOLA POLITÉCNICA
     Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
