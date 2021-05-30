@@ -1,4 +1,4 @@
-# EstruturasTrabalhoGrauB
+# Estruturas Avançadas - Trabalho GB - Aplicação Utilizando AVL
 Trabalho Prático do Grau B de Estruturas Avançadas de Dados. Entrega 18/06/2021
 
     UNIVERSIDADE DO VALE DO RIO DOS SINOS
