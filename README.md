@@ -5,13 +5,15 @@ Integrantes:
 * Artur Nílson: https://github.com/arturnilson
 * Bruno Kayser: https://github.com/BrunoKayser
 * Diego Neves: https://github.com/diegosneves
-* Frederico Cera: 
+* Frederico Cera: //Adicionar o link do Fredera aqui
+
 
 
     UNIVERSIDADE DO VALE DO RIO DOS SINOS
     ESCOLA POLITÉCNICA
     Av. Unisinos, 950 Caixa Postal 275 CEP 93022-750 São Leopoldo Rio Grande do Sul Brasil
     Fone: (51) 3591.1122, Ramal 1668
+
 
 Trabalho Prático Grau B
 Estruturas Avançadas de Dados I
