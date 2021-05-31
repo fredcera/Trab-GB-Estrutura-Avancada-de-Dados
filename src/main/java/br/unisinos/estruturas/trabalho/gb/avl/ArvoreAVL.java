@@ -160,7 +160,7 @@ public class ArvoreAVL {
                     }
                     //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("Valor de data ja existe!");
+                    System.out.println("Valor de data (" + aInserir.getPessoa().getData() + ") ja existe!");
                 }
 
             }
