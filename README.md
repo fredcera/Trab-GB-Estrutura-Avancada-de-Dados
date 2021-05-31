@@ -5,7 +5,7 @@ Integrantes:
 * Artur Nílson: https://github.com/arturnilson
 * Bruno Kayser: https://github.com/BrunoKayser
 * Diego Neves: https://github.com/diegosneves
-* Frederico Cera: //Adicionar o link do Fredera aqui
+* Frederico Cera: https://github.com/fredcera
 
 ```UNIVERSIDADE DO VALE DO RIO DOS SINOS
 ESCOLA POLITÉCNICA
