@@ -1,0 +1,6 @@
+12345678910;00543216;Fulano de Tal;1958-02-14;Porto Alegre
+10987654321;44556601;Cicrana Beltrana Delgrana;1972-05-22;São Leopoldo
+31464821494;78640340;Dagoberto Junior;1982-03-18;Santa Maria
+31464821494;78640340;Dagoberto Junior;1982-03-18;Santa Maria
+11111111111;78640340;Dagoberto Junior;1982-03-18;Santa Maria
+31464821494;78640340;Dagoberto J;1982-03-18;Santa Maria
