@@ -54,6 +54,11 @@ public class TelaInicial extends javax.swing.JFrame {
         menuArquivo.add(menuItemAbrirAquivo);
 
         menuItemCadastrarPessoa.setText("Cadastrar Pessoa");
+        menuItemCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCadastrarPessoaActionPerformed(evt);
+            }
+        });
         menuArquivo.add(menuItemCadastrarPessoa);
 
         jMenuBar1.add(menuArquivo);
@@ -122,6 +127,12 @@ public class TelaInicial extends javax.swing.JFrame {
         
         carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
     }//GEN-LAST:event_menuItemAbrirAquivoActionPerformed
+
+    private void menuItemCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarPessoaActionPerformed
+        // TODO add your handling code here:
+        CadastraPessoaJF cadastrarPessoa = new CadastraPessoaJF();
+        cadastrarPessoa.setVisible(true);
+    }//GEN-LAST:event_menuItemCadastrarPessoaActionPerformed
 
     /**
      * @param args the command line arguments
