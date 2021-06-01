@@ -70,6 +70,10 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
                 }
+                // index de CPF ja existente na arvore
+                else {
+                    System.out.println("Valor de CPF já existe!");
+                }
             } else if (tipo == Tipo.NOME) { // ================== Inserir atravez da Nome como índice ========================
                 int valorComparado = aInserir.getPessoa().getNome().compareTo(aComparar.getPessoa().getNome());
 
@@ -111,7 +115,7 @@ public class ArvoreAVL {
                     }
                     //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("Valor ja existe!");
+                    System.out.println("Valor de nome (" + aInserir.getPessoa().getNome() + ") ja existe!");
                 }
 
             } else if (tipo == Tipo.DATA) { // ================== Inserir atravez da Data como índice ========================
@@ -156,14 +160,14 @@ public class ArvoreAVL {
                     }
                     //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("Valor ja existe!");
+                    System.out.println("Valor de data (" + aInserir.getPessoa().getData() + ") ja existe!");
                 }
 
             }
-            // se ja existir a chave, avisa que ja existe
-            else {
-                System.out.printf("Nó ja existe!");
-            }
+//            // se ja existir a chave, avisa que ja existe
+//            else {
+//                System.out.printf("Nó ja existe!");
+//            }
         }
     }
 
