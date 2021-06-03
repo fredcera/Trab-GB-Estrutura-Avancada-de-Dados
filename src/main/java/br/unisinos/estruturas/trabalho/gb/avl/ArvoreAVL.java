@@ -5,8 +5,6 @@ import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transfo
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -71,7 +69,7 @@ public class ArvoreAVL {
                 }
                 // index de CPF ja existente na arvore
                 else {
-                    System.out.println("Valor de CPF já existe!");
+                    System.out.println("[Árvore " + tipo + "]: \t Valor de CPF ( " + aInserir.getPessoa().getCpf() + " ) já existe!");
                 }
             } else if (tipo == Tipo.NOME) { // ================== Inserir atravez da Nome como índice ========================
                 int valorComparado = aInserir.getPessoa().getNome().compareTo(aComparar.getPessoa().getNome());
@@ -114,7 +112,7 @@ public class ArvoreAVL {
                     }
                     //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("Valor de nome (" + aInserir.getPessoa().getNome() + ") ja existe!");
+                    System.out.println("[Árvore " + tipo + "]:\t Valor de Nome ( " + aInserir.getPessoa().getNome() + " ) já existe!");
                 }
 
             } else if (tipo == Tipo.DATA) { // ================== Inserir atravez da Data como índice ========================
@@ -159,7 +157,7 @@ public class ArvoreAVL {
                     }
                     //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("Valor de data (" + aInserir.getPessoa().getData() + ") ja existe!");
+                    System.out.println("[Árvore " + tipo + "]:\t Valor de Data ( " + aInserir.getPessoa().getData() + " ) já existe!");
                 }
 
             }
@@ -315,14 +313,8 @@ public class ArvoreAVL {
             }
         } // fim laço while
         System.out.println(String.format(
-            "PESSOA ENCONTRADA \n"
+            "----==== Pessoa Encontrada ====---- \n"
                 + atual));
-    }
-
-    private void printarConsulta(Folha folha) {
-        if (folha != null) {
-            System.out.println(String.format("Consultado nodo : %s", folha.getChave()));
-        }
     }
 
     public void imprimirEmOrdem() {
@@ -446,7 +438,7 @@ public class ArvoreAVL {
             String nomeDaPessoaNaFolha = pagina.getPessoa().getNome().toLowerCase(Locale.ROOT);
             String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
             if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
-                System.out.println("====================== Pessoa " + contadorDePessoas);
+                System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
                 System.out.println(pagina.getPessoa());
                 contadorDePessoas++;
             }
@@ -466,7 +458,7 @@ public class ArvoreAVL {
 
             LocalDate dataDeAniversarioPessoa = pagina.getPessoa().getData();
             if (dataDeAniversarioPessoa.isAfter(dataInicial) && dataDeAniversarioPessoa.isBefore(dataFinal) ) {
-                System.out.println("====================== Pessoa " + contadorDePessoas);
+                System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
                 System.out.println(pagina.getPessoa());
                 contadorDePessoas++;
             }
