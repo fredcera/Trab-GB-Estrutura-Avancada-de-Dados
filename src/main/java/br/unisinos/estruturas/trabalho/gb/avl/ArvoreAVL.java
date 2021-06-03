@@ -5,19 +5,18 @@ import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transfo
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 
-import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
-import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class ArvoreAVL {
 
     public Folha raiz;
     private Tipo tipo;
-    private int contadorDeNomes = 1;
+    private int contadorDePessoas = 1;
 
     public ArvoreAVL(Tipo tipo) {
         this.tipo = tipo;
@@ -34,7 +33,7 @@ public class ArvoreAVL {
             inserirAVL(this.raiz, folha);
         }
         if (tipo == Tipo.DATA) {
-            Folha folha = new Folha(chaveAInserir, chaveAInserir.getData().toString());
+            Folha folha = new Folha(chaveAInserir, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(chaveAInserir.getData()));
             inserirAVL(this.raiz, folha);
         }
 
@@ -422,24 +421,58 @@ public class ArvoreAVL {
         }
     }
 
-    public void consultarTodasPessoasPorNome(Folha pagina, String nome) {
-        buscarAsPessoasNaAVL(pagina, nome);
-        contadorDeNomes =1;
+    public void imprimeAVLData(Folha pagina) {
+
+        if (pagina == null) {
+            System.out.print("-");
+        } else {
+            System.out.print("(");
+            imprimeAVL(pagina.getEsquerda());
+            System.out.print(" " + pagina.getChave()  + " ");
+            imprimeAVL(pagina.getDireita());
+            System.out.print(")");
+        }
     }
 
-    private void buscarAsPessoasNaAVL(Folha pagina, String nome) {
+    public void consultarTodasPessoasPorNome(Folha pagina, String nome) {
+        buscarAsPessoasNaAVLPorNome(pagina, nome);
+        contadorDePessoas = 1;
+    }
+
+    private void buscarAsPessoasNaAVLPorNome(Folha pagina, String nome) {
 
         if (pagina != null) {
-            buscarAsPessoasNaAVL(pagina.getEsquerda(), nome);
+            buscarAsPessoasNaAVLPorNome(pagina.getEsquerda(), nome);
             String nomeDaPessoaNaFolha = pagina.getPessoa().getNome().toLowerCase(Locale.ROOT);
             String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
             if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
-                System.out.println("====================== Pessoa " + contadorDeNomes);
+                System.out.println("====================== Pessoa " + contadorDePessoas);
                 System.out.println(pagina.getPessoa());
-                contadorDeNomes++;
+                contadorDePessoas++;
             }
-            buscarAsPessoasNaAVL(pagina.getDireita(), nome);
+            buscarAsPessoasNaAVLPorNome(pagina.getDireita(), nome);
         }
+    }
+
+    public void consultarTodasPessoasPorData(Folha pagina, LocalDate dataInicial, LocalDate dataDinal){
+        buscarAsPessoasnaAVLPorData(pagina, dataInicial, dataDinal);
+        contadorDePessoas = 1;
+    }
+
+    private void buscarAsPessoasnaAVLPorData(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
+
+        if (pagina != null) {
+            buscarAsPessoasnaAVLPorData(pagina.getEsquerda(), dataInicial, dataFinal);
+
+            LocalDate dataDeAniversarioPessoa = pagina.getPessoa().getData();
+            if (dataDeAniversarioPessoa.isAfter(dataInicial) && dataDeAniversarioPessoa.isBefore(dataFinal) ) {
+                System.out.println("====================== Pessoa " + contadorDePessoas);
+                System.out.println(pagina.getPessoa());
+                contadorDePessoas++;
+            }
+            buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);
+        }
+
     }
 
 }

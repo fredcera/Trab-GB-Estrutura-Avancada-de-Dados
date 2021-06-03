@@ -7,6 +7,7 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private Integer rg;
+
     private LocalDate data;
     private String cidade;
 
@@ -45,7 +46,7 @@ public class Pessoa {
                 + "CPF: %s \n"
                 + "RG: %s \n"
                 + "Data de Nascimento: %s \n"
-                + "Cidade: %s",
+                + "Cidade: %s \n",
             nome, cpf, rg, data, cidade);
     }
 }
