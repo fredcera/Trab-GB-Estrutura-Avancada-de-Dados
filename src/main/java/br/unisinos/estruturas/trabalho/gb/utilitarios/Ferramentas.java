@@ -24,7 +24,7 @@ public class Ferramentas {
             while ((linhas = ler.readLine()) != null) {
                 String[] pessoa = linhas.split(";");
                 String[] data = pessoa[3].split("/");
-                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Integer.parseInt(pessoa[1]), transformarEmLocalDate(data),
+                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data),
                         pessoa[4]);
                 MenuUI.arvoreAVLCPF.inserir(novaPessoa);
                 MenuUI.arvoreAVLNOME.inserir(novaPessoa);
