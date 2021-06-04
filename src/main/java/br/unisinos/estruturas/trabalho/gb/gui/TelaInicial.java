@@ -126,8 +126,8 @@ public class TelaInicial extends javax.swing.JFrame {
         String caminhoDoAquivo = arquivo.getAbsolutePath();
         
 //        carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
-        arquivoGerado.setCaminhoDoArquivo(caminhoDoAquivo);
-        arquivoGerado.carregaDoArquivo(caminhoDoAquivo);
+        ferramentas.setCaminhoDoArquivo(caminhoDoAquivo);
+        ferramentas.carregaDoArquivo(caminhoDoAquivo);
         JOptionPane.showMessageDialog(null, "Leitura do Arquivo Completa!");
     }//GEN-LAST:event_menuItemAbrirAquivoActionPerformed
 
@@ -173,7 +173,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
     }
 
-    public static Ferramentas arquivoGerado = new Ferramentas();
+    public static Ferramentas ferramentas = new Ferramentas();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;

@@ -28,11 +28,19 @@ public class Ferramentas {
         serializarPessoa(pessoa);
 
         try (BufferedWriter dados = new BufferedWriter(new FileWriter(arquivo))) {
-//            dados.write(cvsPessoa);
-            dados.append(cvsPessoa);
+            dados.write(cvsPessoa);
+//            dados.append(cvsPessoa);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void adicionarNovaPessoaNaArvore(Pessoa novaPessoa) {
+
+        MenuUI.arvoreAVLCPF.inserir(novaPessoa);
+        MenuUI.arvoreAVLNOME.inserir(novaPessoa);
+        MenuUI.arvoreAVLDATA.inserir(novaPessoa);
+
     }
 
 
@@ -68,6 +76,7 @@ public class Ferramentas {
     }
 
     public void serializarPessoa(Pessoa pessoa) {
+        //TODO Alterar esse metodo para concatenar com mais infos
         cvsPessoa = "";
         cvsPessoa = String.format("%s;%s;%s;%s;%s",
                 pessoa.getCpf(),
