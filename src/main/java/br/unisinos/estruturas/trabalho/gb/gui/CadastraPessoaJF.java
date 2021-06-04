@@ -5,7 +5,12 @@
  */
 package br.unisinos.estruturas.trabalho.gb.gui;
 
+import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
+
 import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -85,10 +90,12 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-user-icon72.png"))); // NOI18N
 
         try {
-            ftDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            ftDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        ftDataNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ftDataNascimento.setText("");
 
         try {
             ftCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
@@ -183,9 +190,19 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
-        String dataRecebida = ftDataNascimento.getText();
-        JOptionPane.showMessageDialog(null, dataRecebida, "TESTA STRING DA DATA", 1);
-        System.out.println(dataRecebida);
+        Pessoa pessoa = new Pessoa(
+                txtNome.getText(),
+                ftCpf.getText(),
+                Long.parseLong(ftRg.getText()),
+                LocalDate.parse(ftDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                txtCidade.getText());
+        try {
+            TelaInicial.arquivoGerado.salvarArquivo(pessoa);
+            JOptionPane.showMessageDialog(null, "Arquivo Salvo com Sucesso!");
+            limpaCampos();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "ERRO AO SALVAR", 0);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

@@ -118,14 +118,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void menuItemAbrirAquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbrirAquivoActionPerformed
         // TODO add your handling code here:
-        Ferramentas carregarArquivo = new Ferramentas();
+//        Ferramentas carregarArquivo = new Ferramentas();
         JFileChooser abrirArquivo = new JFileChooser();
         abrirArquivo.showOpenDialog(null);
         
         File arquivo = abrirArquivo.getSelectedFile();
         String caminhoDoAquivo = arquivo.getAbsolutePath();
         
-        carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
+//        carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
+        arquivoGerado.setCaminhoDoArquivo(caminhoDoAquivo);
+        arquivoGerado.carregaDoArquivo(caminhoDoAquivo);
+        JOptionPane.showMessageDialog(null, "Leitura do Arquivo Completa!");
     }//GEN-LAST:event_menuItemAbrirAquivoActionPerformed
 
     private void menuItemCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarPessoaActionPerformed
@@ -169,6 +172,8 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
     }
+
+    public static Ferramentas arquivoGerado = new Ferramentas();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;

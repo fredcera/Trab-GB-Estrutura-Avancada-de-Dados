@@ -8,9 +8,33 @@ import java.time.LocalDate;
 
 public class Ferramentas {
 
+    private String caminhoDoArquivo, cvsPessoa;
+
     public static Double transformarStringEmDouble(String cpf) {
         return Double.parseDouble(cpf);
     }
+
+    public void setCaminhoDoArquivo(String caminhoDoArquivo) {
+        this.caminhoDoArquivo = caminhoDoArquivo;
+    }
+
+    public String getCaminhoDoArquivo() {
+        return caminhoDoArquivo;
+    }
+
+    public void salvarArquivo(Pessoa pessoa) throws IOException {
+        File arquivo = new File(this.caminhoDoArquivo);
+
+        serializarPessoa(pessoa);
+
+        try (BufferedWriter dados = new BufferedWriter(new FileWriter(arquivo))) {
+//            dados.write(cvsPessoa);
+            dados.append(cvsPessoa);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void carregaDoArquivo(String caminhoArquivo) { // Pessoas.txt
         File file = new File(caminhoArquivo);
@@ -41,6 +65,16 @@ public class Ferramentas {
         Integer ano = Integer.parseInt(data[0]);
 
         return LocalDate.of(ano, mes, dia);
+    }
+
+    public void serializarPessoa(Pessoa pessoa) {
+        cvsPessoa = "";
+        cvsPessoa = String.format("%s;%s;%s;%s;%s",
+                pessoa.getCpf(),
+                pessoa.getRg(),
+                pessoa.getNome(),
+                pessoa.getData().toString(),
+                pessoa.getCidade());
     }
 
 }
