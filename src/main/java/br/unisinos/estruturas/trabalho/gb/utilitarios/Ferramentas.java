@@ -39,8 +39,8 @@ public class Ferramentas {
     public void adicionarNovaPessoaNaArvore(String chave) {
 
         MenuUI.arvoreAVLCPF.inserir(chave);
-      //  MenuUI.arvoreAVLNOME.inserir(novaPessoa);
-      //  MenuUI.arvoreAVLDATA.inserir(novaPessoa);
+        //  MenuUI.arvoreAVLNOME.inserir(novaPessoa);
+        //  MenuUI.arvoreAVLDATA.inserir(novaPessoa);
 
     }
 
@@ -71,10 +71,11 @@ public class Ferramentas {
             }
 
 
-            }
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public static LocalDate transformarEmLocalDate(String[] data) {
