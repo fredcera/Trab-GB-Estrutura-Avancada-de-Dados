@@ -1,31 +1,18 @@
 package br.unisinos.estruturas.trabalho.gb.avl;
 
-import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
-
 public class Folha {
 
     private Folha esquerda = null; // chave menor
     private Folha direita = null; // cheve maior
     private Folha pai = null;
     private String chave; //index
-    private Pessoa pessoa;
-
     private int balanceamento;
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public Folha(Pessoa pessoa, String chave) {
+    public Folha(String chave) {
         this.chave = chave;
         setBalanceamento(0);
-        this.pessoa = new Pessoa(pessoa.getNome(), pessoa.getCpf(), pessoa.getRg(), pessoa.getData(), pessoa.getCidade());
     }
 
-    @Override
-    public String toString() {
-        return pessoa.toString();
-    }
 
     public Folha getEsquerda() {
         return esquerda;
@@ -65,5 +52,10 @@ public class Folha {
 
     public void setBalanceamento(int balanceamento) {
         this.balanceamento = balanceamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Chave encontrada: " + chave;
     }
 }

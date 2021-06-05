@@ -5,6 +5,7 @@ import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Ferramentas {
 
@@ -35,11 +36,11 @@ public class Ferramentas {
         }
     }
 
-    public void adicionarNovaPessoaNaArvore(Pessoa novaPessoa) {
+    public void adicionarNovaPessoaNaArvore(String chave) {
 
-        MenuUI.arvoreAVLCPF.inserir(novaPessoa);
-        MenuUI.arvoreAVLNOME.inserir(novaPessoa);
-        MenuUI.arvoreAVLDATA.inserir(novaPessoa);
+        MenuUI.arvoreAVLCPF.inserir(chave);
+      //  MenuUI.arvoreAVLNOME.inserir(novaPessoa);
+      //  MenuUI.arvoreAVLDATA.inserir(novaPessoa);
 
     }
 
@@ -58,19 +59,28 @@ public class Ferramentas {
                 String[] data = pessoa[3].split("/");
                 novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data),
                         pessoa[4]);
-                MenuUI.arvoreAVLCPF.inserir(novaPessoa);
-                MenuUI.arvoreAVLNOME.inserir(novaPessoa);
-                MenuUI.arvoreAVLDATA.inserir(novaPessoa);
+
+                ArrayList<Pessoa> pessoas = new ArrayList<>();
+                //So adicionar dados que não são repetidos
+//                if(!arvoreAVLCPF.busca(pessoa.getCPF())) {
+//                    pessoas.add();
+//                    MenuUI.arvoreAVLCPF.inserir(pessoa[0]);
+//                    MenuUI.arvoreAVLNOME.inserir(pessoa[2]);
+//                    MenuUI.arvoreAVLDATA.inserir(pessoa[3]);
+//                }
+            }
+
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static LocalDate transformarEmLocalDate(String[] data) {
-        Integer dia = Integer.parseInt(data[2]);
+    public static LocalDate transformarEmLocalDate(String[] data) {
+        Integer dia = Integer.parseInt(data[0]);
         Integer mes = Integer.parseInt(data[1]);
-        Integer ano = Integer.parseInt(data[0]);
+        Integer ano = Integer.parseInt(data[2]);
 
         return LocalDate.of(ano, mes, dia);
     }

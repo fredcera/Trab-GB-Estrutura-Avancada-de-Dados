@@ -7,7 +7,6 @@ public class Pessoa {
     private String nome;
     private String cpf;
     private Long rg;
-
     private LocalDate data;
     private String cidade;
 
