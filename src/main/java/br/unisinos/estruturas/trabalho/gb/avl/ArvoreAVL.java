@@ -5,6 +5,7 @@ import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transfo
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 
+import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,21 +21,20 @@ public class ArvoreAVL {
         this.tipo = tipo;
     }
 
-    public void inserir(Pessoa chaveAInserir) {
+    public void inserir(String chaveAInserir) {
 
         if (tipo == Tipo.CPF) {
-            Folha folha = new Folha(chaveAInserir, chaveAInserir.getCpf());
+            Folha folha = new Folha(chaveAInserir);
             inserirAVL(this.raiz, folha);
         }
         if (tipo == Tipo.NOME) {
-            Folha folha = new Folha(chaveAInserir, chaveAInserir.getNome());
+            Folha folha = new Folha(chaveAInserir);
             inserirAVL(this.raiz, folha);
         }
         if (tipo == Tipo.DATA) {
-            Folha folha = new Folha(chaveAInserir, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(chaveAInserir.getData()));
+            Folha folha = new Folha(chaveAInserir);
             inserirAVL(this.raiz, folha);
         }
-
     }
 
     private void inserirAVL(Folha aComparar, Folha aInserir) {
@@ -42,11 +42,10 @@ public class ArvoreAVL {
         if (aComparar == null) {
             this.raiz = aInserir;
         } else {
-            Double cpfAInserir = transformarStringEmDouble(aInserir.getPessoa().getCpf());
-            Double cpfAComparar = transformarStringEmDouble(aComparar.getPessoa().getCpf());
-
             if (tipo == Tipo.CPF) { // ================== Inserir atravez da CPF como índice ========================
                 // tenta inserir a esquerda se for menor que o pai
+                Double cpfAInserir = transformarStringEmDouble(aInserir.getChave());
+                Double cpfAComparar = transformarStringEmDouble(aComparar.getChave());
 
                 if (cpfAInserir < cpfAComparar) {
                     if (aComparar.getEsquerda() == null) {
@@ -69,12 +68,12 @@ public class ArvoreAVL {
                 }
                 // index de CPF ja existente na arvore
                 else {
-                    System.out.println("[Árvore " + tipo + "]: \t Valor de CPF ( " + aInserir.getPessoa().getCpf() + " ) já existe!");
+                    System.out.println("[Árvore " + tipo + "]: \t Valor de CPF ( " + aInserir.getChave() + " ) já existe!");
                 }
             } else if (tipo == Tipo.NOME) { // ================== Inserir atravez da Nome como índice ========================
-                int valorComparado = aInserir.getPessoa().getNome().compareTo(aComparar.getPessoa().getNome());
-
-                if (valorComparado <= -1 && !aInserir.getPessoa().getCpf().equals(aComparar.getPessoa().getCpf())) {
+                int valorComparado = aInserir.getChave().compareTo(aComparar.getChave());
+                // carregar CPFs do nome João para comparar se existe o mesmo cpf para esse João
+                if (valorComparado < 0) {
                     if (aComparar.getEsquerda() == null) {
                         aComparar.setEsquerda(aInserir);
                         aInserir.setPai(aComparar);
@@ -84,7 +83,7 @@ public class ArvoreAVL {
                     }
                 }
                 // tenta inserir a direita se for maior que o pai
-                else if (valorComparado >= 1 && !aInserir.getPessoa().getCpf().equals(aComparar.getPessoa().getCpf())) {
+                else if (valorComparado > 0) {
                     if (aComparar.getDireita() == null) {
                         aComparar.setDireita(aInserir);
                         aInserir.setPai(aComparar);
@@ -93,33 +92,16 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
                     //Caso nome for igual e cpf menor, vai inserir a esquerda
-                } else if (valorComparado == 0 && cpfAInserir < cpfAComparar) {
-                    if (aComparar.getEsquerda() == null) {
-                        aComparar.setEsquerda(aInserir);
-                        aInserir.setPai(aComparar);
-                        verificarBalanceamento(aComparar);
-                    } else {
-                        inserirAVL(aComparar.getEsquerda(), aInserir);
-                    }
-                    //Caso nome for igual, e cpf da pessoa a inserir for maior que da pessoa existente, insere na direita
-                } else if (valorComparado == 0 && cpfAInserir > cpfAComparar) {
-                    if (aComparar.getDireita() == null) {
-                        aComparar.setDireita(aInserir);
-                        aInserir.setPai(aComparar);
-                        verificarBalanceamento(aComparar);
-                    } else {
-                        inserirAVL(aComparar.getDireita(), aInserir);
-                    }
-                    //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("[Árvore " + tipo + "]:\t Valor de Nome ( " + aInserir.getPessoa().getNome() + " ) já existe!");
+                    System.out.println("[Árvore " + tipo + "]:\t Valor de Nome ( " + aInserir.getChave() + " ) já existe!");
                 }
 
             } else if (tipo == Tipo.DATA) { // ================== Inserir atravez da Data como índice ========================
-
                 //Caso a data  da pessoa a inserir seja menor que a pessoa existente, vai para esquerda
-                if (aInserir.getPessoa().getData().isBefore(aComparar.getPessoa().getData())
-                    && !aInserir.getPessoa().getCpf().equals(aComparar.getPessoa().getCpf())) {
+                LocalDate dataAInserir = transformarEmLocalDate(aInserir);
+                LocalDate dataAComparar = transformarEmLocalDate(aComparar);
+
+                if (dataAInserir.isBefore(dataAComparar)) {
                     if (aComparar.getEsquerda() == null) {
                         aComparar.setEsquerda(aInserir);
                         aInserir.setPai(aComparar);
@@ -128,8 +110,7 @@ public class ArvoreAVL {
                         inserirAVL(aComparar.getEsquerda(), aInserir);
                     }
                     //Caso a data  da pessoa a inserir seja maior que a pessoa existente, vai para direita
-                } else if (aComparar.getPessoa().getData().isBefore(aInserir.getPessoa().getData())
-                    && !aInserir.getPessoa().getCpf().equals(aComparar.getPessoa().getCpf())) {
+                } else if (dataAComparar.isBefore(dataAInserir)) {
                     if (aComparar.getDireita() == null) {
                         aComparar.setDireita(aInserir);
                         aInserir.setPai(aComparar);
@@ -137,36 +118,14 @@ public class ArvoreAVL {
                     } else {
                         inserirAVL(aComparar.getDireita(), aInserir);
                     }
-                    //Caso as datas forem iguais, e cpf da pessoa a inserir seja menor que da pessoa existente, insere na esquerda
-                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData()) && cpfAInserir < cpfAComparar) {
-                    if (aComparar.getEsquerda() == null) {
-                        aComparar.setEsquerda(aInserir);
-                        aInserir.setPai(aComparar);
-                        verificarBalanceamento(aComparar);
-                    } else {
-                        inserirAVL(aComparar.getEsquerda(), aInserir);
-                    }
-                    //Caso as datas forem iguais, e cpf da pessoa a inserir for maior que da pessoa existente, insere na direita
-                } else if (aInserir.getPessoa().getData().isEqual(aComparar.getPessoa().getData()) && cpfAInserir > cpfAComparar) {
-                    if (aComparar.getDireita() == null) {
-                        aComparar.setDireita(aInserir);
-                        aInserir.setPai(aComparar);
-                        verificarBalanceamento(aComparar);
-                    } else {
-                        inserirAVL(aComparar.getDireita(), aInserir);
-                    }
-                    //Não atendendo aos requisitos acima, significa que essa pessoa ja existe.
                 } else {
-                    System.out.println("[Árvore " + tipo + "]:\t Valor de Data ( " + aInserir.getPessoa().getData() + " ) já existe!");
+                    System.out.println("[Árvore " + tipo + "]:\t Valor de Data ( " + aInserir.getChave() + " ) já existe!");
                 }
-
             }
-//            // se ja existir a chave, avisa que ja existe
-//            else {
-//                System.out.printf("Nó ja existe!");
-//            }
+
         }
     }
+
 
     // valida o balanceamento o refazendo caso haja balanceamento igual a 2 ou -2
     private void verificarBalanceamento(Folha aComparar) {
@@ -301,7 +260,7 @@ public class ArvoreAVL {
         // se arvore vazia
         Folha atual = raiz; // começa a procurar desde raiz
 
-        while (!atual.getPessoa().getCpf().equals(cpf)) { // enquanto nao encontrou
+        while (!atual.getChave().equals(cpf)) { // enquanto nao encontrou
             if (transformarStringEmDouble(cpf) < transformarStringEmDouble(atual.getChave())) {
                 atual = atual.getEsquerda(); // caminha para esquerda
             } else {
@@ -420,7 +379,7 @@ public class ArvoreAVL {
         } else {
             System.out.print("(");
             imprimeAVL(pagina.getEsquerda());
-            System.out.print(" " + pagina.getChave()  + " ");
+            System.out.print(" " + pagina.getChave() + " ");
             imprimeAVL(pagina.getDireita());
             System.out.print(")");
         }
@@ -435,18 +394,18 @@ public class ArvoreAVL {
 
         if (pagina != null) {
             buscarAsPessoasNaAVLPorNome(pagina.getEsquerda(), nome);
-            String nomeDaPessoaNaFolha = pagina.getPessoa().getNome().toLowerCase(Locale.ROOT);
+            String nomeDaPessoaNaFolha = pagina.getChave().toLowerCase(Locale.ROOT);
             String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
             if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
                 System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
-                System.out.println(pagina.getPessoa());
+                System.out.println(pagina.getChave());
                 contadorDePessoas++;
             }
             buscarAsPessoasNaAVLPorNome(pagina.getDireita(), nome);
         }
     }
 
-    public void consultarTodasPessoasPorData(Folha pagina, LocalDate dataInicial, LocalDate dataDinal){
+    public void consultarTodasPessoasPorData(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
         buscarAsPessoasnaAVLPorData(pagina, dataInicial, dataDinal);
         contadorDePessoas = 1;
     }
@@ -455,16 +414,21 @@ public class ArvoreAVL {
 
         if (pagina != null) {
             buscarAsPessoasnaAVLPorData(pagina.getEsquerda(), dataInicial, dataFinal);
+            LocalDate dataDaPagina = transformarEmLocalDate(pagina);
 
-            LocalDate dataDeAniversarioPessoa = pagina.getPessoa().getData();
-            if (dataDeAniversarioPessoa.isAfter(dataInicial) && dataDeAniversarioPessoa.isBefore(dataFinal) ) {
+            if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
                 System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
-                System.out.println(pagina.getPessoa());
+                System.out.println(pagina.getChave());
                 contadorDePessoas++;
             }
             buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);
         }
 
+    }
+
+    private LocalDate transformarEmLocalDate(Folha pagina) {
+        String[] dataAInserirEmVetor = pagina.getChave().split("/");
+        return Ferramentas.transformarEmLocalDate(dataAInserirEmVetor);
     }
 
 }
