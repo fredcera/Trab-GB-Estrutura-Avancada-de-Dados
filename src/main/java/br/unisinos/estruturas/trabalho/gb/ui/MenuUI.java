@@ -3,6 +3,7 @@ package br.unisinos.estruturas.trabalho.gb.ui;
 import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVL;
 import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVLCPF;
 import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVLNOME;
+import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 import br.unisinos.estruturas.trabalho.gb.interfaces.ArvoreAVLImplements;
 import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
@@ -10,14 +11,18 @@ import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuUI {
+
     private Scanner le;
     // Declaração dos atributos globais publicos para acesso externo a classe
     public static ArvoreAVL arvoreAVLCPF = new ArvoreAVL(Tipo.CPF);
     public static ArvoreAVL arvoreAVLNOME = new ArvoreAVL(Tipo.NOME);
     public static ArvoreAVL arvoreAVLDATA = new ArvoreAVL(Tipo.DATA);
+    public static ArrayList<Pessoa> pessoas = new ArrayList<>();
+    private int contadorDePessoas = 1;
 
     public MenuUI() {
         le = new Scanner(System.in);
@@ -28,6 +33,15 @@ public class MenuUI {
         arvoreAVLNOME.imprimeAVL(arvoreAVLNOME.raiz);
         System.out.println();
         arvoreAVLDATA.imprimeAVLData(arvoreAVLDATA.raiz);
+        System.out.println();
+        pessoas.forEach(
+            pessoa ->
+                System.out.printf("――----==== Pessoa " + incrementarContador() + " ====----――\n" + pessoa.toString()));
+
+    }
+
+    private int incrementarContador() {
+        return contadorDePessoas++;
     }
 
     public void menu() {
@@ -39,7 +53,7 @@ public class MenuUI {
             opcao = opcaoString.charAt(0);
             switch (opcao) {
                 case 'a': {
-                    System.out.println("\n----==== Busca por CPF ====----");
+                    System.out.println("\n――----==== Busca por CPF ====----――");
                     System.out.print("\n Informe o CPF desejado -> ");
                     valor = le.next();
                     System.out.println();
@@ -100,16 +114,18 @@ public class MenuUI {
     }
 
     private String getMenu() {
-        return "\n\n***************************************************************************************************"
-                + "\n\t\t\t\t----==== Entre com a opção desejada ====----"
-                + "\n\n a :-> \tConsultar uma única pessoa pelo seu CPF e exibir seus dados na tela;"
-                + "\n b :-> \tConsultar todas as pessoas cujo nome comece com uma string informada pelo usuário e exibir \n"
-                + "\tna tela todos os dados dessas pessoas na forma de lista"
-                + "\n c :-> \tConsultar todas as pessoas cuja data de nascimento esteja em um intervalo estabelecido pelo \n"
-                + "\tusuário e exibir na tela todos os dados dessas pessoas na forma de lista."
-                + "\n s :-> \tSair do programa"
-                + "\n\n***************************************************************************************************"
-                + "\n-> ";
+        return "\n\n――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
+            + "\n|\t\t\t\t                 ----==== Entre com a opção desejada ====----                                 "
+            + "|\n|                                                                                                     |"
+            + "\n| a :-> \tConsultar uma única pessoa pelo seu CPF e exibir seus dados na tela;                        |"
+            + "\n| b :-> \tConsultar todas as pessoas cujo nome comece com uma string informada pelo usuário e exibir  |\n"
+            + "|\t              na tela todos os dados dessas pessoas na forma de lista                               |"
+            + "\n| c :-> \tConsultar todas as pessoas cuja data de nascimento esteja em um intervalo estabelecido pelo |\n"
+            + "|\t              usuário e exibir na tela todos os dados dessas pessoas na forma de lista.             |"
+            + "\n| s :-> \tSair do programa                                                                            | "
+            + "\n|                                                                                                     |"
+            + "\n――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――"
+            + "\n-> ";
 
     }
 }

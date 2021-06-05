@@ -230,7 +230,6 @@ public class ArvoreAVL {
         return rotacaoEsquerda(inicial);
     }
 
-
     // seta o balanceamento do no fazendo o calculo de fator
     private void setBalanceamento(Folha no) {
         no.setBalanceamento(altura(no.getDireita()) - altura(no.getEsquerda()));
@@ -252,10 +251,10 @@ public class ArvoreAVL {
         }
     }
 
-    public void buscarPeloCPF(String cpf) {
+    public Boolean buscarPeloCPF(String cpf) {
         if (raiz == null) {
             System.out.println("Arvore vazia!");
-            return;
+            return Boolean.TRUE;
         }
         // se arvore vazia
         Folha atual = raiz; // começa a procurar desde raiz
@@ -268,95 +267,13 @@ public class ArvoreAVL {
             }
             if (atual == null) {
                 System.out.println("Não esta na árvore!");
-                return;// encontrou em uma folha -> sai
+                return Boolean.TRUE;// encontrou em uma folha -> sai
             }
         } // fim laço while
         System.out.println(String.format(
             "----==== Pessoa Encontrada ====---- \n"
                 + atual));
-    }
-
-    public void imprimirEmOrdem() {
-        ArrayList<Folha> emOrdem;
-        emOrdem = inOrder();
-
-        for (Folha folha : emOrdem) {
-            System.out.println(folha);
-        }
-        imprimirLinhaDeTracos();
-    }
-
-    public void imprimirPosOrdem() {
-        ArrayList<Folha> posOrdem;
-        posOrdem = posOrder();
-
-        for (Folha folha : posOrdem) {
-            System.out.println(folha);
-        }
-        imprimirLinhaDeTracos();
-    }
-
-    public void imprimirPreOrdem() {
-        ArrayList<Folha> preOrdem;
-        preOrdem = preOrder();
-
-        for (Folha folha : preOrdem) {
-            System.out.println(folha);
-        }
-        imprimirLinhaDeTracos();
-    }
-
-    private void imprimirLinhaDeTracos() {
-        System.out.println("—————————————————————");
-    }
-
-    private ArrayList<Folha> inOrder() {
-        System.out.println("Impressão em ordem:");
-        ArrayList<Folha> ret = new ArrayList<Folha>();
-        inOrder(raiz, ret);
-        return ret;
-    }
-
-    private void inOrder(Folha no, ArrayList<Folha> lista) {
-        if (no == null) {
-            return;
-        }
-        inOrder(no.getEsquerda(), lista);
-        lista.add(no);
-        inOrder(no.getDireita(), lista);
-    }
-
-    private ArrayList<Folha> posOrder() {
-        System.out.println("Impressão Pós-ordem:");
-        ArrayList<Folha> ret = new ArrayList<Folha>();
-        posOrder(raiz, ret);
-        return ret;
-    }
-
-    private void posOrder(Folha no, ArrayList<Folha> lista) {
-        if (no == null) {
-            return;
-        }
-        posOrder(no.getEsquerda(), lista);
-        posOrder(no.getDireita(), lista);
-        lista.add(no);
-    }
-
-    private ArrayList<Folha> preOrder() {
-        System.out.println("Impressão Pré-ordem:");
-        ArrayList<Folha> ret = new ArrayList<Folha>();
-        preOrder(raiz, ret);
-        return ret;
-    }
-
-    private void preOrder(Folha no, ArrayList<Folha> lista) {
-        if (no == null) {
-            return;
-        }
-        lista.add(no);
-        preOrder(no.getEsquerda(), lista);
-        preOrder(no.getDireita(), lista);
-
+        return Boolean.FALSE;
     }
 
     public void imprimeAVL(Folha pagina) {

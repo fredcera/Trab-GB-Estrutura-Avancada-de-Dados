@@ -40,12 +40,14 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return String.format(""
-                + "Nome: %s \n"
-                + "CPF: %s \n"
-                + "RG: %s \n"
-                + "Data de Nascimento: %s \n"
-                + "Cidade: %s \n",
-            nome, cpf, rg, data, cidade);
+        return String.format(
+                "―――――――――――――――――――――――――\n"
+                + "|Nome: %-25s %7s \n"
+                + "|CPF: %s %22s \n"
+                + "|RG: %s %26s \n"
+                + "|Data de Nascimento: %s %8s \n"
+                + "|Cidade: %s  %16s \n"
+                + "―――――――――――――――――――――――――\n",
+            nome,"|", cpf, "|", rg, "|", data,"|", cidade,"|");
     }
 }

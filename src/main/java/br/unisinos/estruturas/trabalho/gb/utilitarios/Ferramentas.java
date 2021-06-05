@@ -2,10 +2,13 @@ package br.unisinos.estruturas.trabalho.gb.utilitarios;
 
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Ferramentas {
 
@@ -57,17 +60,14 @@ public class Ferramentas {
             while ((linhas = ler.readLine()) != null) {
                 String[] pessoa = linhas.split(";");
                 String[] data = pessoa[3].split("/");
-                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data),
-                        pessoa[4]);
+                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data), pessoa[4]);
 
-                ArrayList<Pessoa> pessoas = new ArrayList<>();
-                //So adicionar dados que não são repetidos
-//                if(!arvoreAVLCPF.busca(pessoa.getCPF())) {
-//                    pessoas.add();
-//                    MenuUI.arvoreAVLCPF.inserir(pessoa[0]);
-//                    MenuUI.arvoreAVLNOME.inserir(pessoa[2]);
-//                    MenuUI.arvoreAVLDATA.inserir(pessoa[3]);
-//                }
+                if(MenuUI.arvoreAVLCPF.buscarPeloCPF(novaPessoa.getCpf())) {
+                    MenuUI.pessoas.add(novaPessoa);
+                    MenuUI.arvoreAVLCPF.inserir(pessoa[0]);
+                    MenuUI.arvoreAVLNOME.inserir(pessoa[2]);
+                    MenuUI.arvoreAVLDATA.inserir(pessoa[3]);
+                }
             }
 
 
