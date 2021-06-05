@@ -49,11 +49,12 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
         ftRg = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CADASTRO DE PESSOAS");
+        setTitle("INSERIR PESSOAS NA ÁRVORE");
         setResizable(false);
 
         jLabel1.setText("Nome:");
 
+        txtNome.setNextFocusableComponent(ftCpf);
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);

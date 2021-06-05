@@ -53,7 +53,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         menuArquivo.add(menuItemAbrirAquivo);
 
-        menuItemCadastrarPessoa.setText("Cadastrar Pessoa");
+        menuItemCadastrarPessoa.setText("Adicionar Pessoa");
         menuItemCadastrarPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCadastrarPessoaActionPerformed(evt);
