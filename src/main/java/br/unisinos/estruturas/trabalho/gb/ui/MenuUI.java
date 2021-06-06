@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class MenuUI {
 
     private Scanner le;
-    // Declaração dos atributos globais publicos para acesso externo a classe
+    // Declaração dos atributos globais de Árvores e lista
     public static ArvoreAVL arvoreAVLCPF = new ArvoreAVL(Tipo.CPF);
     public static ArvoreAVL arvoreAVLNOME = new ArvoreAVL(Tipo.NOME);
     public static ArvoreAVL arvoreAVLDATA = new ArvoreAVL(Tipo.DATA);
@@ -33,7 +33,7 @@ public class MenuUI {
         arvoreAVLNOME.imprimeAVL(arvoreAVLNOME.raiz);
         System.out.println();
         arvoreAVLDATA.imprimeAVLData(arvoreAVLDATA.raiz);
-        System.out.println();
+        System.out.println("\n―――――――――――――――――――――――――");
         pessoas.forEach(
             pessoa ->
                 System.out.printf("――----==== Pessoa " + incrementarContador() + " ====----――\n" + pessoa.toString()));

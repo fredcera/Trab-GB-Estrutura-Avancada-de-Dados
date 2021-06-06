@@ -334,7 +334,7 @@ public class ArvoreAVL {
             LocalDate dataDaPagina = transformarEmLocalDate(pagina);
 
             if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
-                System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
+                System.out.println("――----==== Pessoa " + contadorDePessoas + " ====----――");
                 System.out.println(pagina.getChave());
                 contadorDePessoas++;
             }

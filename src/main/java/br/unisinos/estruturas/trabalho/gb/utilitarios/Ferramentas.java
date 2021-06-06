@@ -62,6 +62,7 @@ public class Ferramentas {
                 String[] data = pessoa[3].split("/");
                 novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data), pessoa[4]);
 
+                /** Valida se o CPF ja existe na árvore, caso não existir, insere na lista e insere índice na AVL */
                 if(MenuUI.arvoreAVLCPF.buscarPeloCPF(novaPessoa.getCpf())) {
                     MenuUI.pessoas.add(novaPessoa);
                     MenuUI.arvoreAVLCPF.inserir(pessoa[0]);
@@ -69,8 +70,6 @@ public class Ferramentas {
                     MenuUI.arvoreAVLDATA.inserir(pessoa[3]);
                 }
             }
-
-
         } catch (
                 IOException e) {
             e.printStackTrace();
