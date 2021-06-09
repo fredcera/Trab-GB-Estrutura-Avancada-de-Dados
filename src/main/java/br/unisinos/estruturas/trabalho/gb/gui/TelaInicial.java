@@ -31,6 +31,7 @@ public class TelaInicial extends javax.swing.JFrame {
         menuArquivo = new javax.swing.JMenu();
         menuItemAbrirAquivo = new javax.swing.JMenuItem();
         menuItemCadastrarPessoa = new javax.swing.JMenuItem();
+        menuItemPesquisar = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         menuItemSobre = new javax.swing.JMenuItem();
 
@@ -55,6 +56,14 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         menuArquivo.add(menuItemCadastrarPessoa);
+
+        menuItemPesquisar.setText("Pesquisar");
+        menuItemPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPesquisarActionPerformed(evt);
+            }
+        });
+        menuArquivo.add(menuItemPesquisar);
 
         jMenuBar1.add(menuArquivo);
 
@@ -120,6 +129,9 @@ public class TelaInicial extends javax.swing.JFrame {
         File arquivo = abrirArquivo.getSelectedFile();
         String caminhoDoAquivo = arquivo.getAbsolutePath();
         
+        TelaDeConsultaJF telaDeConsulta = new TelaDeConsultaJF();
+        telaDeConsulta.setVisible(true);
+        
 //        carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
         ferramentas.setCaminhoDoArquivo(caminhoDoAquivo);
         ferramentas.carregaDoArquivo(caminhoDoAquivo);
@@ -131,6 +143,12 @@ public class TelaInicial extends javax.swing.JFrame {
         CadastraPessoaJF cadastrarPessoa = new CadastraPessoaJF();
         cadastrarPessoa.setVisible(true);
     }//GEN-LAST:event_menuItemCadastrarPessoaActionPerformed
+
+    private void menuItemPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPesquisarActionPerformed
+        // TODO add your handling code here:
+        TelaDeConsultaJF telaDeConsulta = new TelaDeConsultaJF();
+        telaDeConsulta.setVisible(true);
+    }//GEN-LAST:event_menuItemPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +194,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenuItem menuItemAbrirAquivo;
     private javax.swing.JMenuItem menuItemCadastrarPessoa;
+    private javax.swing.JMenuItem menuItemPesquisar;
     private javax.swing.JMenuItem menuItemSobre;
     // End of variables declaration//GEN-END:variables
 }
