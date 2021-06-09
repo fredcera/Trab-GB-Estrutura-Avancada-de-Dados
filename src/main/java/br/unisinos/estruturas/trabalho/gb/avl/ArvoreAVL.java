@@ -344,8 +344,8 @@ public class ArvoreAVL {
     }
 
     private LocalDate transformarEmLocalDate(Folha pagina) {
-        String[] dataAInserirEmVetor = pagina.getChave().split("/");
-        return Ferramentas.transformarEmLocalDate(dataAInserirEmVetor);
+//        String[] dataAInserirEmVetor = pagina.getChave().split("/");
+        return Ferramentas.transformarEmLocalDate(pagina.getChave());
     }
 
 }

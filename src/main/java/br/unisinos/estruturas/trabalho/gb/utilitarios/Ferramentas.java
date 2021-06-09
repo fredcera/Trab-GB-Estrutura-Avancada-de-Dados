@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Ferramentas {
 
@@ -23,31 +24,34 @@ public class Ferramentas {
     }
 
     public String getCaminhoDoArquivo() {
+        //TODO Verificar se há necessidade de usar esse método no futuro.
         return caminhoDoArquivo;
     }
 
     public void salvarArquivo(Pessoa pessoa) throws IOException {
+        //TODO Verificar se há necessidade de usar esse método no futuro.
         File arquivo = new File(this.caminhoDoArquivo);
 
         serializarPessoa(pessoa);
 
         try (BufferedWriter dados = new BufferedWriter(new FileWriter(arquivo))) {
+
             dados.write(cvsPessoa);
-//            dados.append(cvsPessoa);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void adicionarNovaPessoaNaArvore(String chave) {
-
+        //TODO Verificar se há necessidade de usar esse método no futuro.
         MenuUI.arvoreAVLCPF.inserir(chave);
-        //  MenuUI.arvoreAVLNOME.inserir(novaPessoa);
-        //  MenuUI.arvoreAVLDATA.inserir(novaPessoa);
-
     }
 
-
+    /**
+     * Método que recebe uma String que contém um caminho (path) para um arquivo .txt, onde o mesmo será carregado recuperando os dados
+     * referente a pessoas(CPF, RG, Nome, Data de Nascimento, Cidade).
+     * @param caminhoArquivo - Caminho de origem do arquivo .txt no computador.
+     */
     public static void carregaDoArquivo(String caminhoArquivo) { // Pessoas.txt
         File file = new File(caminhoArquivo);
         try {
@@ -57,18 +61,13 @@ public class Ferramentas {
             Pessoa novaPessoa;
             String linhas = "";
 
+            /* Esse laço irá se repitir até não haver mais dados no arquivo .txt*/
             while ((linhas = ler.readLine()) != null) {
+                //Aqui cada linha do arquivo é transportado para um array e cada index do array é uma string obtida pela "quebra" da linha com base no ";" (cvs).
                 String[] pessoa = linhas.split(";");
-                String[] data = pessoa[3].split("/");
-                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(data), pessoa[4]);
+                novaPessoa = new Pessoa(pessoa[2], pessoa[0], Long.parseLong(pessoa[1]), transformarEmLocalDate(pessoa[3]), pessoa[4]);
 
-                /** Valida se o CPF ja existe na árvore, caso não existir, insere na lista e insere índice na AVL */
-                if(MenuUI.arvoreAVLCPF.buscarPeloCPF(novaPessoa.getCpf())) {
-                    MenuUI.pessoas.add(novaPessoa);
-                    MenuUI.arvoreAVLCPF.inserir(pessoa[0]);
-                    MenuUI.arvoreAVLNOME.inserir(pessoa[2]);
-                    MenuUI.arvoreAVLDATA.inserir(pessoa[3]);
-                }
+                inserirPessoa(novaPessoa);
             }
         } catch (
                 IOException e) {
@@ -77,16 +76,34 @@ public class Ferramentas {
 
     }
 
-    public static LocalDate transformarEmLocalDate(String[] data) {
-        Integer dia = Integer.parseInt(data[0]);
-        Integer mes = Integer.parseInt(data[1]);
-        Integer ano = Integer.parseInt(data[2]);
+    /**
+     * Valida se o CPF ja existe na árvore, caso não existir, insere na lista e insere índice na AVL.
+     * @param novaPessoa - Objeto do tipo pessoa passado como parametro para validação.
+     */
+    public static void inserirPessoa(Pessoa novaPessoa) {
 
-        return LocalDate.of(ano, mes, dia);
+        if(MenuUI.arvoreAVLCPF.buscarPeloCPF(novaPessoa.getCpf())) {
+
+            MenuUI.pessoas.add(novaPessoa);
+            MenuUI.arvoreAVLCPF.inserir(novaPessoa.getCpf());
+            MenuUI.arvoreAVLNOME.inserir(novaPessoa.getNome());
+            MenuUI.arvoreAVLDATA.inserir(novaPessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        }
+    }
+
+    /**
+     * Método que recebe uma data no formato de String e converte para um valor do tipo LocalDate.
+     * @param data - String representando uma Data, no qual será convertido em LocalDate.
+     * @return Reorna um valor do tipo LocalDate
+     */
+    public static LocalDate transformarEmLocalDate(String data) {
+
+        return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     public void serializarPessoa(Pessoa pessoa) {
         //TODO Alterar esse metodo para concatenar com mais infos
+        //TODO Verificar se há necessidade de usar esse método no futuro.
         cvsPessoa = "";
         cvsPessoa = String.format("%s;%s;%s;%s;%s",
                 pessoa.getCpf(),

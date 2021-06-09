@@ -1,6 +1,7 @@
 package br.unisinos.estruturas.trabalho.gb.gui;
 
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
+import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 
 import javax.swing.JOptionPane;
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
         jLabel5.setText("Cidade de Nascimento:");
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Actions-save-icon48.png"))); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvar.setText("Adicionar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -187,8 +188,10 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
                 Long.parseLong(ftRg.getText()),
                 LocalDate.parse(ftDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 txtCidade.getText());
-//        TelaInicial.ferramentas.adicionarNovaPessoaNaArvore(pessoa);
-        JOptionPane.showMessageDialog(null, "Esse botão não está fazendo nada!!!");
+        
+        TelaInicial.ferramentas.inserirPessoa(pessoa);
+        
+//        JOptionPane.showMessageDialog(null, "Esse botão não está fazendo nada!!!");
         JOptionPane.showMessageDialog(null, "Arquivo Salvo com Sucesso!");
         limpaCampos();
     }//GEN-LAST:event_btnSalvarActionPerformed
