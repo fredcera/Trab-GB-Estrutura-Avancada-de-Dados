@@ -2,15 +2,11 @@ package br.unisinos.estruturas.trabalho.gb.avl;
 
 import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transformarStringEmDouble;
 
-import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
-
 import br.unisinos.estruturas.trabalho.gb.gui.TelaDeConsultaJF;
+import br.unisinos.estruturas.trabalho.gb.utilitarios.GetDadosPessoa;
 import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 public class ArvoreAVL {
@@ -272,9 +268,8 @@ public class ArvoreAVL {
                 return Boolean.TRUE;// encontrou em uma folha -> sai
             }
         } // fim laço while
-        System.out.println(String.format(
-            "----==== Pessoa Encontrada ====---- \n"
-                + atual));
+      
+        GetDadosPessoa.getPessoa(atual.getChave(), Tipo.CPF);
         TelaDeConsultaJF.retornoDasBuscas += atual.getChave() + ";";
         return Boolean.FALSE;
     }
@@ -316,9 +311,8 @@ public class ArvoreAVL {
             buscarAsPessoasNaAVLPorNome(pagina.getEsquerda(), nome);
             String nomeDaPessoaNaFolha = pagina.getChave().toLowerCase(Locale.ROOT);
             String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
-            if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
-                System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
-                System.out.println(pagina.getChave());
+            if (nomeDaPessoaNaFolha.startsWith(nomeAPesquisar)) {
+                GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.NOME);
                 TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }
@@ -338,8 +332,7 @@ public class ArvoreAVL {
             LocalDate dataDaPagina = transformarEmLocalDate(pagina);
 
             if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
-                System.out.println("――----==== Pessoa " + contadorDePessoas + " ====----――");
-                System.out.println(pagina.getChave());
+                GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.DATA);
                 TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }

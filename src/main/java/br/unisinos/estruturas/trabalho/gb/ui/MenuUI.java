@@ -1,11 +1,8 @@
 package br.unisinos.estruturas.trabalho.gb.ui;
 
 import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVL;
-import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVLCPF;
-import br.unisinos.estruturas.trabalho.gb.avl.ArvoreAVLNOME;
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
-import br.unisinos.estruturas.trabalho.gb.interfaces.ArvoreAVLImplements;
 import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 
 import java.text.ParseException;
