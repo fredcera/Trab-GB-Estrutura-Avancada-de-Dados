@@ -5,10 +5,12 @@ import static br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas.transfo
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 
+import br.unisinos.estruturas.trabalho.gb.gui.TelaDeConsultaJF;
 import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class ArvoreAVL {
@@ -273,6 +275,7 @@ public class ArvoreAVL {
         System.out.println(String.format(
             "----==== Pessoa Encontrada ====---- \n"
                 + atual));
+        TelaDeConsultaJF.retornoDasBuscas += atual.getChave() + ";";
         return Boolean.FALSE;
     }
 
@@ -316,6 +319,7 @@ public class ArvoreAVL {
             if (nomeDaPessoaNaFolha.contains(nomeAPesquisar)) {
                 System.out.println("----==== Pessoa " + contadorDePessoas + " ====----");
                 System.out.println(pagina.getChave());
+                TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }
             buscarAsPessoasNaAVLPorNome(pagina.getDireita(), nome);
@@ -336,6 +340,7 @@ public class ArvoreAVL {
             if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
                 System.out.println("――----==== Pessoa " + contadorDePessoas + " ====----――");
                 System.out.println(pagina.getChave());
+                TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }
             buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);

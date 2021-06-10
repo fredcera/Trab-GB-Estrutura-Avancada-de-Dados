@@ -5,11 +5,19 @@
  */
 package br.unisinos.estruturas.trabalho.gb.gui;
 
+import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
+import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
+import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
+import javax.swing.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+
 /**
  *
  * @author diego
  */
-public class TelaDeConsultaJF extends javax.swing.JFrame {
+public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaDeConsultaJF
@@ -28,7 +36,7 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jListaPesquisa = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         jrCpf = new javax.swing.JRadioButton();
         jrNome = new javax.swing.JRadioButton();
@@ -50,13 +58,22 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
             }
         });
 
-        jList1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jListaPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder("Valores Encontrados:"));
+        jListaPesquisa.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jListaPesquisaAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
         });
-        jScrollPane1.setViewportView(jList1);
+        jListaPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListaPesquisaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jListaPesquisa);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Buscar por:"));
         jPanel1.setName(""); // NOI18N
@@ -154,6 +171,11 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
 
         btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search48.png"))); // NOI18N
         btPesquisar.setText("Pesquisar");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -213,14 +235,8 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
         lblBuscaPor.setText("Informe o nome:");
-        jrNome.setSelected(true);
-        jrCpf.setSelected(false);
-        jrData.setSelected(false);
-        txtNomeCpf.setEnabled(true);
-        ftDataInicio.setEnabled(false);
-        ftDataFim.setEnabled(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void jrNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNomeActionPerformed
@@ -254,6 +270,109 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
         ftDataInicio.setEnabled(true);
         ftDataFim.setEnabled(true);
     }//GEN-LAST:event_jrDataActionPerformed
+
+    @SuppressWarnings("empty-statement")
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+        // TODO add your handling code here:
+        retornoDasBuscas = "";
+
+        if(jrNome.isSelected()) {
+
+            MenuUI.arvoreAVLNOME.consultarTodasPessoasPorNome(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
+
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+
+        } else if (jrCpf.isSelected()) {
+            
+            MenuUI.arvoreAVLCPF.buscarPeloCPF(txtNomeCpf.getText());
+            
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+            
+        } else if (jrData.isSelected()) {
+            
+            MenuUI.arvoreAVLDATA.consultarTodasPessoasPorData(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
+
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+
+        } else {
+            String[] pesquisar = null;
+        }
+    }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private LocalDate dataFormatada(String data) {
+        return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    /**
+     *
+     * @param retornoDasBuscas
+     * @return
+     */
+    private ListModel<String> listaModelDePesquisa(String retornoDasBuscas) {
+
+        DefaultListModel model = new DefaultListModel();
+
+        String[] pesquisar = retornoDasBuscas.split(";");
+        for (String busca : pesquisar) {
+            model.addElement(busca);
+        }
+
+        return model;
+    }
+
+
+    private void jListaPesquisaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jListaPesquisaAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListaPesquisaAncestorAdded
+
+    private void jListaPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListaPesquisaMouseClicked
+        // TODO add your handling code here:
+        String pessoa = "";
+        String dados = jListaPesquisa.getSelectedValue().toString();
+
+        if(jrNome.isSelected()) {
+            pessoa = getPessoa(dados, Tipo.NOME);
+
+        } else if (jrCpf.isSelected()) {
+            pessoa = getPessoa(dados, Tipo.CPF);
+
+        } else {
+            pessoa = getPessoa(dados, Tipo.DATA);
+
+        }
+
+        JOptionPane.showMessageDialog(null, pessoa.toString(),"Dados da Pessoa:", 1);
+
+
+    }//GEN-LAST:event_jListaPesquisaMouseClicked
+
+    private String getPessoa(String dados, Tipo pesquisaPor) {
+        String pessoas = "";
+
+        if (pesquisaPor == Tipo.NOME) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getNome())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        } else if (pesquisaPor == Tipo.CPF) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getCpf())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        } else if (pesquisaPor == Tipo.DATA) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        }
+        return "Nenhuma pessoa Encontrada!!";
+    }
 
     /**
      * @param args the command line arguments
@@ -289,6 +408,8 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static String retornoDasBuscas;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisar;
@@ -296,7 +417,7 @@ public class TelaDeConsultaJF extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField ftDataInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jListaPesquisa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

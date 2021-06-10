@@ -1,6 +1,7 @@
 package br.unisinos.estruturas.trabalho.gb.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
 
@@ -40,15 +41,14 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        String pipe = "|";
         return String.format(
             "―――――――――――――――――――――――――\n"
-         + "|Nome: %-25s %7s \n"
-         + "|CPF: %s %22s \n"
-         + "|RG: %-10s %24s \n"
-         + "|Data de Nascimento: %s %8s \n"
-         + "|Cidade: %-15s  %14s \n"
+         + " > Nome:  %s\n"
+         + " > CPF:     %s\n"
+         + " > RG:      %s\n"
+         + " > Data de Nascimento: %s\n"
+         + " > Cidade: %s\n"
          + "―――――――――――――――――――――――――\n",
-            nome, pipe, cpf, pipe, rg, pipe, data, pipe, cidade, pipe);
+            nome, cpf, rg, data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), cidade);
     }
 }
