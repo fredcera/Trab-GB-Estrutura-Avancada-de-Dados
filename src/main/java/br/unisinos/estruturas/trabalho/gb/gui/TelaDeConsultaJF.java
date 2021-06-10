@@ -5,6 +5,8 @@
  */
 package br.unisinos.estruturas.trabalho.gb.gui;
 
+import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
+import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
 import javax.swing.*;
 import java.time.LocalDate;
@@ -64,6 +66,11 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jListaPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListaPesquisaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jListaPesquisa);
@@ -230,12 +237,6 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:      
         lblBuscaPor.setText("Informe o nome:");
-        jrNome.setSelected(true);
-        jrCpf.setSelected(false);
-        jrData.setSelected(false);
-        txtNomeCpf.setEnabled(true);
-        ftDataInicio.setEnabled(false);
-        ftDataFim.setEnabled(false);
     }//GEN-LAST:event_formWindowActivated
 
     private void jrNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNomeActionPerformed
@@ -323,6 +324,55 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private void jListaPesquisaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jListaPesquisaAncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_jListaPesquisaAncestorAdded
+
+    private void jListaPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListaPesquisaMouseClicked
+        // TODO add your handling code here:
+        String pessoa = "";
+        String dados = jListaPesquisa.getSelectedValue().toString();
+
+        if(jrNome.isSelected()) {
+            pessoa = getPessoa(dados, Tipo.NOME);
+
+        } else if (jrCpf.isSelected()) {
+            pessoa = getPessoa(dados, Tipo.CPF);
+
+        } else {
+            pessoa = getPessoa(dados, Tipo.DATA);
+
+        }
+
+        JOptionPane.showMessageDialog(null, pessoa.toString(),"Dados da Pessoa:", 1);
+
+
+    }//GEN-LAST:event_jListaPesquisaMouseClicked
+
+    private String getPessoa(String dados, Tipo pesquisaPor) {
+        String pessoas = "";
+
+        if (pesquisaPor == Tipo.NOME) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getNome())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        } else if (pesquisaPor == Tipo.CPF) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getCpf())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        } else if (pesquisaPor == Tipo.DATA) {
+            for (Pessoa pessoa : MenuUI.pessoas) {
+                if (dados.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            }
+            return pessoas;
+        }
+        return "Nenhuma pessoa Encontrada!!";
+    }
 
     /**
      * @param args the command line arguments
