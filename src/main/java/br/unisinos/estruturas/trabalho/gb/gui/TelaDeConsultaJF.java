@@ -7,6 +7,8 @@ package br.unisinos.estruturas.trabalho.gb.gui;
 
 import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
 import javax.swing.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 /**
@@ -54,7 +56,7 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             }
         });
 
-        jListaPesquisa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jListaPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder("Valores Encontrados:"));
         jListaPesquisa.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jListaPesquisaAncestorAdded(evt);
@@ -271,30 +273,51 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     @SuppressWarnings("empty-statement")
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         // TODO add your handling code here:
-        DefaultListModel m = new DefaultListModel();
+        retornoDasBuscas = "";
 
         if(jrNome.isSelected()) {
-            retornoDasBuscas = "";
 
             MenuUI.arvoreAVLNOME.consultarTodasPessoasPorNome(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
 
-            String[] pesquisar = retornoDasBuscas.split(";");
-
-
-            jListaPesquisa = new JList<>(pesquisar);
-
-            jListaPesquisa.updateUI();
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
 
         } else if (jrCpf.isSelected()) {
-            String[] pesquisar = null;
-            //Codigo
+            
+            MenuUI.arvoreAVLCPF.buscarPeloCPF(txtNomeCpf.getText());
+            
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+            
         } else if (jrData.isSelected()) {
-            String[] pesquisar = null;
-            //codigo
+            
+            MenuUI.arvoreAVLDATA.consultarTodasPessoasPorData(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
+
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+
         } else {
             String[] pesquisar = null;
         }
     }//GEN-LAST:event_btPesquisarActionPerformed
+
+    private LocalDate dataFormatada(String data) {
+        return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    /**
+     *
+     * @param retornoDasBuscas
+     * @return
+     */
+    private ListModel<String> listaModelDePesquisa(String retornoDasBuscas) {
+
+        DefaultListModel model = new DefaultListModel();
+
+        String[] pesquisar = retornoDasBuscas.split(";");
+        for (String busca : pesquisar) {
+            model.addElement(busca);
+        }
+
+        return model;
+    }
 
 
     private void jListaPesquisaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jListaPesquisaAncestorAdded

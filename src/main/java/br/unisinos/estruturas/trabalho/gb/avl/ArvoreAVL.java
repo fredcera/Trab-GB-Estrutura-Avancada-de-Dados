@@ -275,6 +275,7 @@ public class ArvoreAVL {
         System.out.println(String.format(
             "----==== Pessoa Encontrada ====---- \n"
                 + atual));
+        TelaDeConsultaJF.retornoDasBuscas += atual.getChave() + ";";
         return Boolean.FALSE;
     }
 
@@ -339,6 +340,7 @@ public class ArvoreAVL {
             if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
                 System.out.println("――----==== Pessoa " + contadorDePessoas + " ====----――");
                 System.out.println(pagina.getChave());
+                TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }
             buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);
