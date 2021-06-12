@@ -49,6 +49,7 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         txtNomeCpf = new javax.swing.JTextField();
         lblBuscaPor = new javax.swing.JLabel();
         btPesquisar = new javax.swing.JButton();
+        lblInfos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("BUSCA DE REGISTROS");
@@ -56,9 +57,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
-        jListaPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder("Valores Encontrados:"));
+        jListaPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder("Chaves Encontrados na AVL:"));
         jListaPesquisa.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jListaPesquisaAncestorAdded(evt);
@@ -204,6 +208,9 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lblInfos.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        lblInfos.setText("Informe um nome para procurar na árvore AVL:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,7 +220,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblInfos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -223,9 +231,11 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblInfos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
@@ -248,6 +258,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
         ftDataFim.setEnabled(false);
+        lblInfos.setText("Informe um nome no campo acima para verificar na árvore AVL");
+        jListaPesquisa.setModel(new DefaultListModel<>());
 
     }//GEN-LAST:event_jrNomeActionPerformed
 
@@ -260,6 +272,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
         ftDataFim.setEnabled(false);
+        lblInfos.setText("Informe um CPF no campo acima para verificar na árvore AVL");
+        jListaPesquisa.setModel(new DefaultListModel<>());
 
     }//GEN-LAST:event_jrCpfActionPerformed
 
@@ -271,6 +285,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         txtNomeCpf.setEnabled(false);
         ftDataInicio.setEnabled(true);
         ftDataFim.setEnabled(true);
+        lblInfos.setText("Informe uma data inicial e final para verificar na árvore AVL");
+        jListaPesquisa.setModel(new DefaultListModel<>());
 
     }//GEN-LAST:event_jrDataActionPerformed
 
@@ -278,26 +294,56 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
 
         retornoDasBuscas = "";
+        jListaPesquisa.setModel(new DefaultListModel<>());
+        
 
         if(jrNome.isSelected()) {
+            
+            if(txtNomeCpf.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Favor insira um nome para buscar", "Campo Vazio", 0);
+                return;
+            }
 
-            //MenuUI.arvoreAVLNOME.consultarTodasPessoasPorNome(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
             MenuUI.arvoreAVLNOME.buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
-
-            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+            
+            if(retornoDasBuscas.equals("")) {
+                lblInfos.setText("Nenhum valor foi encontrado!");
+                JOptionPane.showMessageDialog(null,"Nenhum valor foi encontrado!");
+            } else {
+                lblInfos.setText("Selecione uma chave abaixo para visualizar mais informações");
+            }
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas, Tipo.NOME));
 
         } else if (jrCpf.isSelected()) {
             
+            if(txtNomeCpf.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Favor insira um CPF para buscar", "Campo Vazio", 0);
+                return;
+            }
+            
             MenuUI.arvoreAVLCPF.buscarPeloCPF(txtNomeCpf.getText());
             
-            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+            if(retornoDasBuscas.equals("")) {
+                lblInfos.setText("Nenhum valor foi encontrado!");
+                JOptionPane.showMessageDialog(null,"Nenhum valor foi encontrado!");
+            } else {
+                lblInfos.setText("Selecione uma chave abaixo para visualizar mais informações");
+            }
+            
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas, Tipo.CPF));
             
         } else if (jrData.isSelected()) {
-            
-            //MenuUI.arvoreAVLDATA.consultarTodasPessoasPorData(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
+
             MenuUI.arvoreAVLDATA.consultarTodasPessoasPorDataEmOrdem(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
 
-            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
+            if(retornoDasBuscas.equals("")) {
+                lblInfos.setText("Nenhum valor foi encontrado!");
+                JOptionPane.showMessageDialog(null,"Nenhum valor foi encontrado!");
+            } else {
+                lblInfos.setText("Selecione uma chave abaixo para visualizar mais informações");
+            }
+            
+            jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas, Tipo.DATA));
 
         } else {
             String[] pesquisar = null;
@@ -309,21 +355,42 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     }
 
     /**
-     *Método que recebe uma String contendo valores separados por ";". Essa String será inserida em array de String onde cada elemento será inserido em
+     * Método que recebe uma String contendo valores separados por ";". Essa String será inserida em array de String onde cada elemento será inserido em
      * uma variavel do tipo ListModel, retornando-a.
      * @param retornoDasBuscas - String que contem um ou mais valores separados por ";".
      * @return Retorna um ListModel do tipo String contendo valores para usar em uma JList.
      */
-    private ListModel<String> listaModelDePesquisa(String retornoDasBuscas) {
+    private ListModel<String> listaModelDePesquisa(String retornoDasBuscas, Tipo pesquisaPor) {
 
         DefaultListModel model = new DefaultListModel();
 
         String[] pesquisar = retornoDasBuscas.split(";");
         for (String busca : pesquisar) {
-            model.addElement(busca);
+            model.addElement(modelDeBuscaEQuantidade(busca, pesquisaPor));
         }
 
         return model;
+    }
+
+    private String modelDeBuscaEQuantidade(String busca, Tipo pesquisaPor) {
+        Integer contador = 0;
+
+        for (Pessoa pessoa : MenuUI.pessoas) {
+            if (pesquisaPor == Tipo.DATA) {
+                if (busca.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+                    contador++;
+                }
+            } else if (pesquisaPor == Tipo.CPF) {
+                if (busca.equals(pessoa.getCpf())) {
+                    contador++;
+                }
+            } else if (pesquisaPor == Tipo.NOME) {
+                if (busca.equals(pessoa.getNome())) {
+                    contador++;
+                }
+            }
+        }
+        return String.format("%s%s", busca, (contador > 1 ? "-(" + contador + ")": ""));
     }
 
 
@@ -337,13 +404,13 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         String valorSelecionadoNaLista = jListaPesquisa.getSelectedValue().toString();
 
         if(jrNome.isSelected()) {
-            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.NOME);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista.split("-")[0], Tipo.NOME);
 
         } else if (jrCpf.isSelected()) {
-            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.CPF);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista.split("-")[0], Tipo.CPF);
 
         } else {
-            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.DATA);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista.split("-")[0], Tipo.DATA);
 
         }
 
@@ -351,6 +418,18 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jListaPesquisaMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        jrNome.setSelected(true);
+        lblBuscaPor.setText("Informe o nome:");
+        txtNomeCpf.setEnabled(true);
+        jrCpf.setSelected(false);
+        jrData.setSelected(false);
+        ftDataInicio.setEnabled(false);
+        ftDataFim.setEnabled(false);
+        lblInfos.setText("Informe um nome no campo acima para verificar na árvore AVL");
+    }//GEN-LAST:event_formWindowOpened
 
     private String buscarDadosDeUmaPessoaByParametro(String valorAPesquisar, Tipo buscarPor) {
         String pessoas = "";
@@ -424,6 +503,7 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrData;
     private javax.swing.JRadioButton jrNome;
     private javax.swing.JLabel lblBuscaPor;
+    private javax.swing.JLabel lblInfos;
     private javax.swing.JTextField txtNomeCpf;
     // End of variables declaration//GEN-END:variables
 }
