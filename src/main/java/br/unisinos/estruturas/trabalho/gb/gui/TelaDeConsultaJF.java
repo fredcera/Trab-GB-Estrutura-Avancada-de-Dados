@@ -8,10 +8,10 @@ package br.unisinos.estruturas.trabalho.gb.gui;
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
+
 import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 
 /**
  *
@@ -235,12 +235,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:      
-        lblBuscaPor.setText("Informe o nome:");
+
+//        lblBuscaPor.setText("Informe o nome:");
     }//GEN-LAST:event_formWindowActivated
 
     private void jrNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNomeActionPerformed
-        // TODO add your handling code here:
+
         jrNome.setSelected(true);
         lblBuscaPor.setText("Informe o nome:");
         txtNomeCpf.setEnabled(true);
@@ -248,10 +248,11 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
         ftDataFim.setEnabled(false);
+
     }//GEN-LAST:event_jrNomeActionPerformed
 
     private void jrCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrCpfActionPerformed
-        // TODO add your handling code here:
+
         jrNome.setSelected(false);
         jrCpf.setSelected(true);
         lblBuscaPor.setText("Informe o CPF:");
@@ -259,21 +260,23 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
         ftDataFim.setEnabled(false);
+
     }//GEN-LAST:event_jrCpfActionPerformed
 
     private void jrDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrDataActionPerformed
-        // TODO add your handling code here:
+
         jrNome.setSelected(false);
         jrCpf.setSelected(false);
         jrData.setSelected(true);
         txtNomeCpf.setEnabled(false);
         ftDataInicio.setEnabled(true);
         ftDataFim.setEnabled(true);
+
     }//GEN-LAST:event_jrDataActionPerformed
 
     @SuppressWarnings("empty-statement")
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        // TODO add your handling code here:
+
         retornoDasBuscas = "";
 
         if(jrNome.isSelected()) {
@@ -306,9 +309,10 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     }
 
     /**
-     *
-     * @param retornoDasBuscas
-     * @return
+     *Método que recebe uma String contendo valores separados por ";". Essa String será inserida em array de String onde cada elemento será inserido em
+     * uma variavel do tipo ListModel, retornando-a.
+     * @param retornoDasBuscas - String que contem um ou mais valores separados por ";".
+     * @return Retorna um ListModel do tipo String contendo valores para usar em uma JList.
      */
     private ListModel<String> listaModelDePesquisa(String retornoDasBuscas) {
 
@@ -324,22 +328,22 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
 
     private void jListaPesquisaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jListaPesquisaAncestorAdded
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_jListaPesquisaAncestorAdded
 
     private void jListaPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListaPesquisaMouseClicked
-        // TODO add your handling code here:
+
         String pessoa = "";
-        String dados = jListaPesquisa.getSelectedValue().toString();
+        String valorSelecionadoNaLista = jListaPesquisa.getSelectedValue().toString();
 
         if(jrNome.isSelected()) {
-            pessoa = getPessoa(dados, Tipo.NOME);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.NOME);
 
         } else if (jrCpf.isSelected()) {
-            pessoa = getPessoa(dados, Tipo.CPF);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.CPF);
 
         } else {
-            pessoa = getPessoa(dados, Tipo.DATA);
+            pessoa = buscarDadosDeUmaPessoaByParametro(valorSelecionadoNaLista, Tipo.DATA);
 
         }
 
@@ -348,32 +352,25 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jListaPesquisaMouseClicked
 
-    private String getPessoa(String dados, Tipo pesquisaPor) {
+    private String buscarDadosDeUmaPessoaByParametro(String valorAPesquisar, Tipo buscarPor) {
         String pessoas = "";
 
-        if (pesquisaPor == Tipo.NOME) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getNome())) {
+        for (Pessoa pessoa : MenuUI.pessoas) {
+            if (buscarPor == Tipo.DATA) {
+                if (valorAPesquisar.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            } else if (buscarPor == Tipo.CPF) {
+                if (valorAPesquisar.equals(pessoa.getCpf())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            } else if (buscarPor == Tipo.NOME) {
+                if (valorAPesquisar.equals(pessoa.getNome())) {
                     pessoas += pessoa.toString() + "\n";
                 }
             }
-            return pessoas;
-        } else if (pesquisaPor == Tipo.CPF) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getCpf())) {
-                    pessoas += pessoa.toString() + "\n";
-                }
-            }
-            return pessoas;
-        } else if (pesquisaPor == Tipo.DATA) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
-                    pessoas += pessoa.toString() + "\n";
-                }
-            }
-            return pessoas;
         }
-        return "Nenhuma pessoa Encontrada!!";
+        return pessoas;
     }
 
     /**

@@ -111,18 +111,17 @@ public class TelaInicial extends javax.swing.JFrame {
     private void menuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSobreActionPerformed
         // TODO add your handling code here:
         String mensagem = String.format("Membros do Grupo\n* %s\n* %s\n* %s\n* %s\n",
-                "Diego Neves",
+                "Artur Nílson",
                 "Bruno Kayser",
-                "Frederico Cera",
-                "Artur");
+                "Diego Neves",
+                "Frederico Cera");
         
         JOptionPane.showMessageDialog(null, mensagem.toString(),"TRABALHO PRÁTICO GRAU B",1);
 
     }//GEN-LAST:event_menuItemSobreActionPerformed
 
     private void menuItemAbrirAquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAbrirAquivoActionPerformed
-        // TODO add your handling code here:
-//        Ferramentas carregarArquivo = new Ferramentas();
+
         JFileChooser abrirArquivo = new JFileChooser();
         abrirArquivo.showOpenDialog(null);
         
@@ -131,21 +130,20 @@ public class TelaInicial extends javax.swing.JFrame {
         
         TelaDeConsultaJF telaDeConsulta = new TelaDeConsultaJF();
         telaDeConsulta.setVisible(true);
-        
-//        carregarArquivo.carregaDoArquivo(caminhoDoAquivo);
+
         ferramentas.setCaminhoDoArquivo(caminhoDoAquivo);
         ferramentas.carregaDoArquivo(caminhoDoAquivo);
         JOptionPane.showMessageDialog(null, "Leitura do Arquivo Completa!");
     }//GEN-LAST:event_menuItemAbrirAquivoActionPerformed
 
     private void menuItemCadastrarPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCadastrarPessoaActionPerformed
-        // TODO add your handling code here:
+
         CadastraPessoaJF cadastrarPessoa = new CadastraPessoaJF();
         cadastrarPessoa.setVisible(true);
     }//GEN-LAST:event_menuItemCadastrarPessoaActionPerformed
 
     private void menuItemPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPesquisarActionPerformed
-        // TODO add your handling code here:
+
         TelaDeConsultaJF telaDeConsulta = new TelaDeConsultaJF();
         telaDeConsulta.setVisible(true);
     }//GEN-LAST:event_menuItemPesquisarActionPerformed

@@ -1,10 +1,8 @@
 package br.unisinos.estruturas.trabalho.gb.gui;
 
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
-import br.unisinos.estruturas.trabalho.gb.utilitarios.Ferramentas;
 
-import javax.swing.JOptionPane;
-import java.io.IOException;
+import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -181,7 +179,7 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+
         Pessoa pessoa = new Pessoa(
                 txtNome.getText(),
                 ftCpf.getText(),
@@ -190,17 +188,16 @@ public class CadastraPessoaJF extends javax.swing.JFrame {
                 txtCidade.getText());
         
         TelaInicial.ferramentas.inserirPessoa(pessoa);
-        
-//        JOptionPane.showMessageDialog(null, "Esse botão não está fazendo nada!!!");
+
         JOptionPane.showMessageDialog(null, "Arquivo Salvo com Sucesso!");
         limpaCampos();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+
         limpaCampos();
         dispose();
-//        this.setVisible(false);
+
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void limpaCampos() {
