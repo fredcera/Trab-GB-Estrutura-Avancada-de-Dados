@@ -62,7 +62,8 @@ public class MenuUI {
                     System.out.print("\n Informe o Nome desejado -> ");
                     valor = le.next();
                     System.out.println();
-                    arvoreAVLNOME.consultarTodasPessoasPorNome(arvoreAVLNOME.raiz, valor);
+                    //arvoreAVLNOME.consultarTodasPessoasPorNome(arvoreAVLNOME.raiz, valor);
+                    arvoreAVLNOME.buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(arvoreAVLNOME.raiz, valor);
                     break;
                 }
                 case 'c': {
@@ -94,7 +95,8 @@ public class MenuUI {
                         LocalDate dataInicial = LocalDate.of(anoInicial, mesInicial, diaInicial);
                         LocalDate dataFinal = LocalDate.of(anoFinal, mesFinal, diaFinal);
 
-                        arvoreAVLDATA.consultarTodasPessoasPorData(arvoreAVLDATA.raiz, dataInicial, dataFinal);
+//                        arvoreAVLDATA.consultarTodasPessoasPorData(arvoreAVLDATA.raiz, dataInicial, dataFinal);
+                        arvoreAVLDATA.consultarTodasPessoasPorDataEmOrdem(arvoreAVLDATA.raiz, dataInicial, dataFinal);
                     } catch (ParseException e) {
                         System.out.println(e.toString());
                     }

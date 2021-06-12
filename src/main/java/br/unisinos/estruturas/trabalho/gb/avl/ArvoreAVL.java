@@ -300,30 +300,42 @@ public class ArvoreAVL {
         }
     }
 
-    public void consultarTodasPessoasPorNome(Folha pagina, String nome) {
-        buscarAsPessoasNaAVLPorNome(pagina, nome);
+    public void buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(Folha pagina, String nome) {
+        emOrdem(pagina, nome);
         contadorDePessoas = 1;
     }
 
-    private void buscarAsPessoasNaAVLPorNome(Folha pagina, String nome) {
-
-        if (pagina != null) {
-            buscarAsPessoasNaAVLPorNome(pagina.getEsquerda(), nome);
-            String nomeDaPessoaNaFolha = pagina.getChave().toLowerCase(Locale.ROOT);
-            String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
-            if (nomeDaPessoaNaFolha.startsWith(nomeAPesquisar)) {
-                GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.NOME);
-                TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
-                contadorDePessoas++;
-            }
-            buscarAsPessoasNaAVLPorNome(pagina.getDireita(), nome);
+    private void emOrdem(Folha pagina, String nome) {
+        if (pagina == null) {
+            return;
         }
+
+        emOrdem(pagina.getEsquerda(), nome);
+        String nomeDaPessoaNaFolha = pagina.getChave().toLowerCase(Locale.ROOT);
+        String nomeAPesquisar = nome.toLowerCase(Locale.ROOT);
+
+        // verificar se uma palavra é maior que a outra
+        int criterioDeParada = nomeDaPessoaNaFolha.substring(0, nome.length()).compareTo(nomeAPesquisar);
+
+        if (criterioDeParada == 0) {
+            GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.NOME);
+            TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
+            contadorDePessoas++;
+        }
+
+        if(criterioDeParada > 0){
+            return;
+        }
+
+        emOrdem(pagina.getDireita(), nome);
+
     }
 
     public void consultarTodasPessoasPorData(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
         buscarAsPessoasnaAVLPorData(pagina, dataInicial, dataDinal);
         contadorDePessoas = 1;
     }
+
 
     private void buscarAsPessoasnaAVLPorData(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
 
@@ -336,13 +348,51 @@ public class ArvoreAVL {
                 TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
                 contadorDePessoas++;
             }
+
+            if(dataDaPagina.isAfter(dataFinal)){
+                return;
+            }
+
             buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);
         }
 
     }
 
+    public void consultarTodasPessoasPorDataEmOrdem(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
+        emOrdemPorData(pagina, dataInicial, dataDinal);
+        contadorDePessoas = 1;
+        contadorDePassos = 1;
+        contadorDeParada = 1;
+    }
+
+
+    private int contadorDePassos = 1;
+    private int contadorDeParada = 1;
+    private void emOrdemPorData(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
+
+        if (pagina == null) {
+            return;
+        }
+        emOrdemPorData(pagina.getEsquerda(), dataInicial, dataFinal);
+        LocalDate dataDaPagina = transformarEmLocalDate(pagina);
+
+        if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
+            System.out.println("Quantidade de passos: "+ contadorDePassos++);
+            GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.DATA);
+            TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
+            contadorDePessoas++;
+        }
+
+        if(dataDaPagina.isAfter(dataFinal)){
+            System.out.println("Quantidade de paradas: "+ contadorDeParada++);
+            return;
+        }
+
+        emOrdemPorData(pagina.getDireita(), dataInicial, dataFinal);
+
+    }
+
     private LocalDate transformarEmLocalDate(Folha pagina) {
-//        String[] dataAInserirEmVetor = pagina.getChave().split("/");
         return Ferramentas.transformarEmLocalDate(pagina.getChave());
     }
 

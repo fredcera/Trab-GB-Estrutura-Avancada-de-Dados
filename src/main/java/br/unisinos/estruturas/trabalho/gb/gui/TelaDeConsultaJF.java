@@ -278,7 +278,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         if(jrNome.isSelected()) {
 
-            MenuUI.arvoreAVLNOME.consultarTodasPessoasPorNome(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
+            //MenuUI.arvoreAVLNOME.consultarTodasPessoasPorNome(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
+            MenuUI.arvoreAVLNOME.buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
 
             jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
 
@@ -290,7 +291,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             
         } else if (jrData.isSelected()) {
             
-            MenuUI.arvoreAVLDATA.consultarTodasPessoasPorData(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
+            //MenuUI.arvoreAVLDATA.consultarTodasPessoasPorData(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
+            MenuUI.arvoreAVLDATA.consultarTodasPessoasPorDataEmOrdem(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
 
             jListaPesquisa.setModel(listaModelDePesquisa(retornoDasBuscas));
 
