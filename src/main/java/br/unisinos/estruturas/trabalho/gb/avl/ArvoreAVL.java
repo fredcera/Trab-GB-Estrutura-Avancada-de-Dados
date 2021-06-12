@@ -331,43 +331,11 @@ public class ArvoreAVL {
 
     }
 
-    public void consultarTodasPessoasPorData(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
-        buscarAsPessoasnaAVLPorData(pagina, dataInicial, dataDinal);
-        contadorDePessoas = 1;
-    }
-
-
-    private void buscarAsPessoasnaAVLPorData(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
-
-        if (pagina != null) {
-            buscarAsPessoasnaAVLPorData(pagina.getEsquerda(), dataInicial, dataFinal);
-            LocalDate dataDaPagina = transformarEmLocalDate(pagina);
-
-            if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
-                GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.DATA);
-                TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
-                contadorDePessoas++;
-            }
-
-            if(dataDaPagina.isAfter(dataFinal)){
-                return;
-            }
-
-            buscarAsPessoasnaAVLPorData(pagina.getDireita(), dataInicial, dataFinal);
-        }
-
-    }
-
     public void consultarTodasPessoasPorDataEmOrdem(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
         emOrdemPorData(pagina, dataInicial, dataDinal);
         contadorDePessoas = 1;
-        contadorDePassos = 1;
-        contadorDeParada = 1;
     }
 
-
-    private int contadorDePassos = 1;
-    private int contadorDeParada = 1;
     private void emOrdemPorData(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
 
         if (pagina == null) {
@@ -377,14 +345,12 @@ public class ArvoreAVL {
         LocalDate dataDaPagina = transformarEmLocalDate(pagina);
 
         if (dataDaPagina.isAfter(dataInicial) && dataDaPagina.isBefore(dataFinal)) {
-            System.out.println("Quantidade de passos: "+ contadorDePassos++);
             GetDadosPessoa.getPessoa(pagina.getChave(), Tipo.DATA);
             TelaDeConsultaJF.retornoDasBuscas += pagina.getChave() + ";";
             contadorDePessoas++;
         }
 
         if(dataDaPagina.isAfter(dataFinal)){
-            System.out.println("Quantidade de paradas: "+ contadorDeParada++);
             return;
         }
 
