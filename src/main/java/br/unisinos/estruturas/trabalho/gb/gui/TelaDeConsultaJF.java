@@ -8,10 +8,14 @@ package br.unisinos.estruturas.trabalho.gb.gui;
 import br.unisinos.estruturas.trabalho.gb.entity.Pessoa;
 import br.unisinos.estruturas.trabalho.gb.enumerador.Tipo;
 import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
+import java.text.ParseException;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,9 +50,9 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtNomeCpf = new javax.swing.JTextField();
         lblBuscaPor = new javax.swing.JLabel();
         btPesquisar = new javax.swing.JButton();
+        ftNomeCpf = new javax.swing.JFormattedTextField();
         lblInfos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -181,6 +185,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             }
         });
 
+        try {
+            ftNomeCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,9 +199,9 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBuscaPor)
-                    .addComponent(txtNomeCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftNomeCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -199,12 +209,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblBuscaPor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ftNomeCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -253,7 +263,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         jrNome.setSelected(true);
         lblBuscaPor.setText("Informe o nome:");
-        txtNomeCpf.setEnabled(true);
+        ftNomeCpf.setEnabled(true);
+        formatarFtNomeCpfByNome();
         jrCpf.setSelected(false);
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
@@ -268,7 +279,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         jrNome.setSelected(false);
         jrCpf.setSelected(true);
         lblBuscaPor.setText("Informe o CPF:");
-        txtNomeCpf.setEnabled(true);
+        ftNomeCpf.setEnabled(true);
+        formatarFtNomeCpfByCpf();
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
         ftDataFim.setEnabled(false);
@@ -277,12 +289,26 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jrCpfActionPerformed
 
+    private void formatarFtNomeCpfByCpf() {
+        try {
+            ftNomeCpf.setValue(null);
+            ftNomeCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaDeConsultaJF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void formatarFtNomeCpfByNome() {
+        ftNomeCpf.setValue(null);
+        ftNomeCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new DefaultFormatter()));
+    }
+
     private void jrDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrDataActionPerformed
 
         jrNome.setSelected(false);
         jrCpf.setSelected(false);
         jrData.setSelected(true);
-        txtNomeCpf.setEnabled(false);
+        ftNomeCpf.setEnabled(false);
         ftDataInicio.setEnabled(true);
         ftDataFim.setEnabled(true);
         lblInfos.setText("Informe uma data inicial e final para verificar na árvore AVL");
@@ -299,12 +325,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         if(jrNome.isSelected()) {
             
-            if(txtNomeCpf.getText().isEmpty()){
+            if(ftNomeCpf.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Favor insira um nome para buscar", "Campo Vazio", 0);
                 return;
             }
 
-            MenuUI.arvoreAVLNOME.buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(MenuUI.arvoreAVLNOME.raiz, txtNomeCpf.getText());
+            MenuUI.arvoreAVLNOME.buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(MenuUI.arvoreAVLNOME.raiz, ftNomeCpf.getText());
             
             if(retornoDasBuscas.equals("")) {
                 lblInfos.setText("Nenhum valor foi encontrado!");
@@ -316,12 +342,12 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         } else if (jrCpf.isSelected()) {
             
-            if(txtNomeCpf.getText().isEmpty()){
+            if(ftNomeCpf.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "Favor insira um CPF para buscar", "Campo Vazio", 0);
                 return;
             }
             
-            MenuUI.arvoreAVLCPF.buscarPeloCPF(txtNomeCpf.getText());
+            MenuUI.arvoreAVLCPF.buscarPeloCPF(ftNomeCpf.getText());
             
             if(retornoDasBuscas.equals("")) {
                 lblInfos.setText("Nenhum valor foi encontrado!");
@@ -423,7 +449,8 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
         // TODO add your handling code here:
         jrNome.setSelected(true);
         lblBuscaPor.setText("Informe o nome:");
-        txtNomeCpf.setEnabled(true);
+        ftNomeCpf.setEnabled(true);
+        formatarFtNomeCpfByNome();
         jrCpf.setSelected(false);
         jrData.setSelected(false);
         ftDataInicio.setEnabled(false);
@@ -493,6 +520,7 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JFormattedTextField ftDataFim;
     private javax.swing.JFormattedTextField ftDataInicio;
+    private javax.swing.JFormattedTextField ftNomeCpf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListaPesquisa;
@@ -504,6 +532,5 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrNome;
     private javax.swing.JLabel lblBuscaPor;
     private javax.swing.JLabel lblInfos;
-    private javax.swing.JTextField txtNomeCpf;
     // End of variables declaration//GEN-END:variables
 }
