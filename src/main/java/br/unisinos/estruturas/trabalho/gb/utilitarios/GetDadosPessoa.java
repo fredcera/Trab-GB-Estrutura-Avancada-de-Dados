@@ -8,38 +8,25 @@ import br.unisinos.estruturas.trabalho.gb.ui.MenuUI;
 
 public class GetDadosPessoa {
 
-    public static String getPessoa(String dados, Tipo pesquisaPor) {
-        String dadosPessoas = "";
+    public static String getPessoa(String valorAPesquisar, Tipo buscarPor) {
+        String pessoas = "";
 
-        if (pesquisaPor == Tipo.NOME) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getNome())) {
-                    dadosPessoas += pessoa.toString() + "\n";
+        for (Pessoa pessoa : MenuUI.pessoas) {
+            if (buscarPor == Tipo.DATA) {
+                if (valorAPesquisar.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            } else if (buscarPor == Tipo.CPF) {
+                if (valorAPesquisar.equals(pessoa.getCpf())) {
+                    pessoas += pessoa.toString() + "\n";
+                }
+            } else if (buscarPor == Tipo.NOME) {
+                if (valorAPesquisar.equals(pessoa.getNome())) {
+                    pessoas += pessoa.toString() + "\n";
                 }
             }
-
-            System.out.println(dadosPessoas);
-            return dadosPessoas;
-        } else if (pesquisaPor == Tipo.CPF) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getCpf())) {
-                    dadosPessoas += pessoa.toString() + "\n";
-                }
-            }
-
-            System.out.println(dadosPessoas);
-            return dadosPessoas;
-        } else if (pesquisaPor == Tipo.DATA) {
-            for (Pessoa pessoa : MenuUI.pessoas) {
-                if (dados.equals(pessoa.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))) {
-                    dadosPessoas += pessoa.toString() + "\n";
-                }
-            }
-
-            System.out.println(dadosPessoas);
-            return dadosPessoas;
         }
-
-        return "Nenhuma pessoa Encontrada!!";
+        System.out.println(pessoas);
+        return pessoas;
     }
 }
