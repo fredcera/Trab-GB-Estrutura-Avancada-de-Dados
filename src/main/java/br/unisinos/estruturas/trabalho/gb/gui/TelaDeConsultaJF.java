@@ -360,6 +360,11 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
             
         } else if (jrData.isSelected()) {
 
+            if(ftDataInicio.getText().equals("  /  /    ") || ftDataFim.getText().equals("  /  /    ")){
+                JOptionPane.showMessageDialog(null, "Favor insira uma Data de Início e uma Data de Fim para obter resultados", "Campo Vazio", 0);
+                return;
+            }
+
             MenuUI.arvoreAVLDATA.consultarTodasPessoasPorDataEmOrdem(MenuUI.arvoreAVLDATA.raiz, dataFormatada(ftDataInicio.getText()), dataFormatada(ftDataFim.getText()));
 
             if(retornoDasBuscas.equals("")) {
