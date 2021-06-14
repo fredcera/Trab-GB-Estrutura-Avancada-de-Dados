@@ -342,7 +342,7 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         } else if (jrCpf.isSelected()) {
             
-            if(ftNomeCpf.getText().isEmpty()){
+            if(ftNomeCpf.getText().equals("           ")){
                 JOptionPane.showMessageDialog(null, "Favor insira um CPF para buscar", "Campo Vazio", 0);
                 return;
             }
