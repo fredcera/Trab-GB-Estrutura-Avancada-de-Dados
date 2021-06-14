@@ -445,7 +445,9 @@ public class TelaDeConsultaJF<jListaPesquisa> extends javax.swing.JFrame {
 
         }
 
-        JOptionPane.showMessageDialog(null, pessoa.toString(),"Dados da Pessoa:", 1);
+        DadosDePessoasJF pessoasEncontradas = new DadosDePessoasJF();
+        pessoasEncontradas.setTxaPessoasEncontradas(pessoa);
+        pessoasEncontradas.setVisible(true);
 
 
     }//GEN-LAST:event_jListaPesquisaMouseClicked
