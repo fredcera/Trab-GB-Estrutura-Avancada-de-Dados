@@ -42,10 +42,6 @@ public class Folha {
         return chave;
     }
 
-    public void setChave(String chave) {
-        this.chave = chave;
-    }
-
     public int getBalanceamento() {
         return balanceamento;
     }

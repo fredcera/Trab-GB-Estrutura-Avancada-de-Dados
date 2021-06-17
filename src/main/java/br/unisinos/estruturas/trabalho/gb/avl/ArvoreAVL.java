@@ -249,6 +249,11 @@ public class ArvoreAVL {
         }
     }
 
+    /**
+     * Método que recebe um CPF no formato String para buscar por encaminhamento em ordem pela arvore do tipo CPF
+     * @param cpf - String
+     * @return Reorna um valor Boolean
+     */
     public Boolean buscarPeloCPF(String cpf) {
         if (raiz == null) {
             System.out.println("Arvore vazia!");
@@ -264,8 +269,8 @@ public class ArvoreAVL {
                 atual = atual.getDireita(); // caminha para direita
             }
             if (atual == null) {
-                System.out.println("Não esta na árvore!");
-                return Boolean.TRUE;// encontrou em uma folha -> sai
+                System.out.println("Não esta na árvore este CPF!");
+                return Boolean.TRUE;// não encontrou em nenhuma nó/folha -> sai do metodo
             }
         } // fim laço while
       
@@ -300,6 +305,12 @@ public class ArvoreAVL {
         }
     }
 
+    /**
+     * Método que recebe a raiz da arvore do tipo NOME e um texto em formato String para realizar uma busca
+     * por encaminhamento em ordem dentro dos index's do tipo NOME
+     * @param pagina - Folha, nome - String
+     * @return void
+     */
     public void buscarAsPessoasNaAVLPorNomeEImprimirEmOrdem(Folha pagina, String nome) {
         emOrdem(pagina, nome);
         contadorDePessoas = 1;
@@ -331,8 +342,14 @@ public class ArvoreAVL {
 
     }
 
-    public void consultarTodasPessoasPorDataEmOrdem(Folha pagina, LocalDate dataInicial, LocalDate dataDinal) {
-        emOrdemPorData(pagina, dataInicial, dataDinal);
+    /**
+     * Método que recebe a raiz do tipo DATA uma data inicial e final em formato LocalDate para realizar uma busca
+     * por encaminhamento em ordem dentro dos index's do tipo DATA
+     * @param pagina - Folha, dataInicial - LocalDate, dataFinal - LocalDate
+     * @return void
+     */
+    public void consultarTodasPessoasPorDataEmOrdem(Folha pagina, LocalDate dataInicial, LocalDate dataFinal) {
+        emOrdemPorData(pagina, dataInicial, dataFinal);
         contadorDePessoas = 1;
     }
 

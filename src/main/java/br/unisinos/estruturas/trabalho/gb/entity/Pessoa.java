@@ -27,16 +27,8 @@ public class Pessoa {
         return cpf;
     }
 
-    public Long getRg() {
-        return rg;
-    }
-
     public LocalDate getData() {
         return data;
-    }
-
-    public String getCidade() {
-        return cidade;
     }
 
     @Override
@@ -44,8 +36,8 @@ public class Pessoa {
         return String.format(
             "―――――――――――――――――――――――――\n"
          + " > Nome:  %s\n"
-         + " > CPF:     %s\n"
-         + " > RG:      %s\n"
+         + " > CPF:   %s\n"
+         + " > RG:    %s\n"
          + " > Data de Nascimento: %s\n"
          + " > Cidade: %s\n"
          + "―――――――――――――――――――――――――\n",

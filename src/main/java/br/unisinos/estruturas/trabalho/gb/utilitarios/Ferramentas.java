@@ -23,30 +23,6 @@ public class Ferramentas {
         this.caminhoDoArquivo = caminhoDoArquivo;
     }
 
-    public String getCaminhoDoArquivo() {
-        //TODO Verificar se há necessidade de usar esse método no futuro.
-        return caminhoDoArquivo;
-    }
-
-    public void salvarArquivo(Pessoa pessoa) throws IOException {
-        //TODO Verificar se há necessidade de usar esse método no futuro.
-        File arquivo = new File(this.caminhoDoArquivo);
-
-        serializarPessoa(pessoa);
-
-        try (BufferedWriter dados = new BufferedWriter(new FileWriter(arquivo))) {
-
-            dados.write(cvsPessoa);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void adicionarNovaPessoaNaArvore(String chave) {
-        //TODO Verificar se há necessidade de usar esse método no futuro.
-        MenuUI.arvoreAVLCPF.inserir(chave);
-    }
-
     /**
      * Método que recebe uma String que contém um caminho (path) para um arquivo .txt, onde o mesmo será carregado recuperando os dados
      * referente a pessoas(CPF, RG, Nome, Data de Nascimento, Cidade).
@@ -99,18 +75,6 @@ public class Ferramentas {
     public static LocalDate transformarEmLocalDate(String data) {
 
         return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    }
-
-    public void serializarPessoa(Pessoa pessoa) {
-        //TODO Alterar esse metodo para concatenar com mais infos
-        //TODO Verificar se há necessidade de usar esse método no futuro.
-        cvsPessoa = "";
-        cvsPessoa = String.format("%s;%s;%s;%s;%s",
-                pessoa.getCpf(),
-                pessoa.getRg(),
-                pessoa.getNome(),
-                pessoa.getData().toString(),
-                pessoa.getCidade());
     }
 
 }
